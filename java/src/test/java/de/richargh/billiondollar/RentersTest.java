@@ -25,12 +25,11 @@ public class RentersTest {
     @DisplayName("should find renter if she's known")
     public void findExistingItem(){
         // given
-        RenterId id = new RenterId("1");
-        Renter renter = new Renter(id, "Lisa");
+        Renter renter = RenterFactory.aRenter();
         Renters testee = new Renters(renter);
 
         // when
-        Optional<Renter> result = testee.findById(id);
+        Optional<Renter> result = testee.findById(renter.id());
 
         // then
         assertThat(result).contains(renter);

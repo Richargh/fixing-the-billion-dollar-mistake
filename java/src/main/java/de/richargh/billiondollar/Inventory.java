@@ -16,4 +16,10 @@ public class Inventory {
         return Optional.ofNullable(items.get(id));
     }
 
+    public boolean rent(Item item, RenterId renterId){
+        Item rentedItem = new Item(item.id(), item.name(), Optional.of(renterId));
+        items.put(rentedItem.id(), rentedItem);
+        return true;
+    }
+
 }
