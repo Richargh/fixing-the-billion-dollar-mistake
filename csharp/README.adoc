@@ -1,0 +1,19 @@
+= Contract Tests in C# with Xunit (Sandbox)
+
+This repo shows how to write link:http://richargh.de/posts/Contract-Tests-in-Kotlin[contract tests] in C# with Xunit where the contract is in one project and the derived test is in another. The contracts help to ensure that the business logic of our test fixtures is in sync with the logic of the production implementation.
+
+Our application only knows about link:Library/Application/IBooks.cs[the IBooks interface]. In our unit tests we can pass in a fake implementation that does not write to the database: link:Library.Fixtures/Adapter/InMemoryBooks.cs[InMemoryBooks]. This keeps the unit tests fast, makes the clean up very simple and provides an easy way for test isolation. But there is the danger that the fake implementation becomes out-of-sync with the actual production implementation link:Library/Adapter/MongoBooks.cs[MongoBooks]. 
+
+That's where link:http://richargh.de/posts/Contract-Tests-in-Kotlin[contract tests] come in. The link:Library.Test/Application/BooksContract.cs[BooksContract] is an `abstract class` and implemented by two different tests that supply the two different IBooks implementations. 
+
+== Tech Stack
+
+* C#9 and .NET 5
+* MongoDb
+* Xunit
+* Hexagonal Architecture
+
+== Usage
+
+. Start local mongo instance: `docker run -p 27017:27017 --name mongodb mongo`
+. Run tests: `dotnet test`
