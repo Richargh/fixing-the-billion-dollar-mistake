@@ -453,3 +453,11 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+##
+## Maven
+##
+java/.classpath
+java/.project
+java/.settings/
+java/target/

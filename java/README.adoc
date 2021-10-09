@@ -1,2 +1,10 @@
 # Fixing the Billion Dollar Mistake in Java
 
+== Tech Stack
+
+* Java 8
+* Junit 5
+
+== Usage
+
+. Run tests: `mvn test`

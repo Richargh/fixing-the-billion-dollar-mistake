@@ -1,21 +1,24 @@
-package de.maibornwolff.kata;
+package de.richargh.billiondollar;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.DisplayName;
 
 public class GreeterTest {
 
     @Test
-    public void shouldSayHi(){
+    @DisplayName("Greeting should contain passed name")
+    public void containsName(){
         // given
-        Greeter sut = new Greeter();
+        Greeter testee = new Greeter();
 
         // when
-        String result = sut.greet();
+        String result = testee.greet("Ben");
 
         // then
-        assertEquals("Hi", result);
+        assertThat(result).isEqualTo("Hello Ben!");
     }
 
 }
