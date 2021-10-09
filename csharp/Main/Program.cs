@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Richargh.Sandbox.ContractTests.Library
+namespace Richargh.BillionDollar
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var greeter = new Greeater();
-            Console.WriteLine(greeter.greet("World"));
+            var greeter = new Greeter();
+            Console.WriteLine(greeter.Greet("World"));
         }
     }
 }

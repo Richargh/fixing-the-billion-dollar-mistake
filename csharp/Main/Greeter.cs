@@ -5,7 +5,7 @@ namespace Richargh.BillionDollar
 
         public string Greet(string name)
 	{
-	    return $"Hello ${name}";
+	    return $"Hello {name}!";
 	}
     }
 }

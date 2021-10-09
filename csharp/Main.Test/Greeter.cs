@@ -12,7 +12,7 @@ namespace Richargh.BillionDollar.Test
             // given
             var testee = new Greeter();
             // when
-	    var result = testee.greet("Ben");
+	    var result = testee.Greet("Ben");
             // then
             result.Should().Be("Hello Ben!");
         }
