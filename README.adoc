@@ -1,0 +1,5 @@
+= Fixing the Billion Dollar Mistake
+
+Example code in different languages for handling the billion dollar mistake.
+
+Also includes Examples for Railway-oriented programming.
