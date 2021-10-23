@@ -29,8 +29,7 @@ Python has been around for a long time: version 1.0 was released January 1994, c
 Since it's original release it has grown steadily in popularity and since link:https://www.tiobe.com/tiobe-index/[October 2021 the TIOBE index considers it the most popular programming language].
 One of the reasons for that is that it's evolved significantly over the years and received numerous interesting new features:
 
-* 3.5 (2015): link:https://www.python.org/dev/peps/pep-0484/[type hints]
-* 3.7 (): link:https://www.python.org/dev/peps/pep-0557/[data classes]
-* 3.10 (2021): link:https://www.python.org/dev/peps/pep-0604/[special union type syntax]
-
-* link:https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html[Python Type Hints Cheat Sheet]
+* 3.5 (2015): link:https://www.python.org/dev/peps/pep-0484/[type hints], see also link:https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html[Python Type Hints Cheat Sheet]
+* 3.7 (2018): link:https://www.python.org/dev/peps/pep-0557/[data classes]
+* 3.8 (2019): link:https://www.python.org/dev/peps/pep-0544/[Protocols]
+* 3.10 (2021): link:https://www.python.org/dev/peps/pep-0604/[special union type syntax], link:https://www.python.org/dev/peps/pep-0622/[Structural Pattern Matching]

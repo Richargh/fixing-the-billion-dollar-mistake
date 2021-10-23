@@ -1,4 +1,4 @@
-from src.renting.Item import Item
+from src.renting.items import Item, AvailableItem, RentedItem
 from src.renting.ItemId import ItemId
 from src.renting.RenterId import RenterId
 
@@ -12,6 +12,6 @@ class Inventory:
     def find_by_id(self, item_id: ItemId) -> Item | None:
         return self._items.get(item_id, None)
 
-    def rent(self, item: Item, renter_id: RenterId) -> None:
-        rented_item = Item(item.id, item.name, renter_id)
+    def rent(self, item: AvailableItem, renter_id: RenterId) -> None:
+        rented_item = RentedItem(item.id, item.name, renter_id)
         self._items[rented_item.id] = rented_item
