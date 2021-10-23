@@ -1,0 +1,24 @@
+= Fixing the Billion Dollar Mistake in Java
+
+== Usage
+
+* Run program `python index.py`
+* Run tests `pytest`
+
+
+=== Install Python via pyenv (Optional but useful)
+
+Install link:https://github.com/pyenv/pyenv[Pyenv] and configure your shell (`~/.bash_profile` or similar) with pyenv documentation.
+
+. Check if you have a current python version installed: `pyenv versions`
+** If not, install a current Python version: `pyenv install 3.10.0`
+** List other available versions via: `pyenv install --list`
+. Check that the local python version is current: `pyenv local`
+** If no current version is used, set it: `pyenv local 3.10.0`
+. Check that the right python version is used: `python --version`
+** If the wrong python version is displayed, then your shell is not configured correctly. I had to follow the fish instructions because that is my main shell.
+
+=== Install Requirements (via Pip)
+
+* Main requirements `pip install -r requirements.txt`
+* Test requirements `pip install -r requirements-test.txt`
