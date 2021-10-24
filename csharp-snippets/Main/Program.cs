@@ -1,13 +1,21 @@
-﻿using System;
-
-namespace Richargh.BillionDollar
+﻿namespace Richargh.BillionDollar
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var greeter = new Greeter();
-            Console.WriteLine(greeter.Greet("World"));
+            InitUsages();
+        }
+
+        private static void InitUsages()
+        {
+            var renter = new Letter
+            {
+                Sender = "Bob",
+                Text = "Hey Alice, it's Bob."
+            };
+        
+            var address = new Address(City:"Trakei", Street:null);
         }
     }
 }
