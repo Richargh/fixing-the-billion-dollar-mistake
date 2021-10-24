@@ -2,9 +2,17 @@
 {
     public class Employee
     {
-        public EmployeeId Id { get; init; }
-        public string Name { get; init; }
+
+        public EmployeeId Id { get;  }
+        public string Name { get; }
+        public Notebook Notebook { get; set; }
         
-        public Notebook Notebook { get; init; }
+        public Employee(EmployeeId id, string name, Notebook notebook)
+        {
+            Id = id;
+            Name = name;
+            Notebook = notebook;
+        }
+        
     }
 }

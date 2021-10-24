@@ -17,5 +17,10 @@ namespace Legacy
         {
             return _allEmployees.GetValueOrDefault(id);
         }
+        
+        public void Put(Employee employee)
+        {
+            _allEmployees[employee.Id] = employee;
+        }
     }
 }
