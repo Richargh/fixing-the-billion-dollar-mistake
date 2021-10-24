@@ -4,22 +4,22 @@ namespace Richargh.BillionDollar
 {
     public class UsesLegacyCode
     {
-        private readonly Register _register;
+        private readonly Company _company;
 
-        public UsesLegacyCode(Register register)
+        public UsesLegacyCode(Company company)
         {
-            _register = register;
+            _company = company;
         }
         
-        public string? FindNotebookMaker(string id)
+        public string? FindNotebookMaker(EmployeeId id)
         {
-            var person = _register.FindById(id);
+            var employee = _company.FindById(id);
             // we guard against person being null but forget about the object properties
-            if (person is null)
+            if (employee is null)
                 return null;
-            
+            /* ... */
             // compiles just fine even though Notebook is not necessarily set 
-            return person.Notebook.Maker;
+            return employee.Notebook.Maker;
         }
     }
 }

@@ -7,14 +7,19 @@ namespace Richargh.BillionDollar.Test
 {
     public class UsesLegacyCodeTest
     {
-        [Fact(DisplayName="Should produce NullReferenceException in code where we disabled null checks")]
+        [Fact(DisplayName="Should produce NullReferenceException in code because Notebook maker is not set")]
         public void ShouldProduceNullReferenceException()
         {
             // given
-            var addressBook = new Register();
+            var employee = new Employee
+            {
+                Id = new EmployeeId("1"),
+                Name = "Jon"
+            };
+            var addressBook = new Company(employee);
             var testee = new UsesLegacyCode(addressBook);
             // when
-            Action act = () => testee.FindNotebookMaker("1");
+            Action act = () => testee.FindNotebookMaker(employee.Id);
             // then
             act.Should().Throw<NullReferenceException>();
         }
