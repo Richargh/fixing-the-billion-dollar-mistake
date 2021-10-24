@@ -2,7 +2,7 @@ using System;
 using FluentAssertions;
 using Xunit;
 
-namespace Richargh.BillionDollar.Test
+namespace Richargh.BillionDollar.Main.Test
 {
     public class DisabledNullChecksTest
     {
