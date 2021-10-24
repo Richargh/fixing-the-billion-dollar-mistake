@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Legacy
+namespace Richargh.BillionDollar.Legacy
 {
     public class Company
     {

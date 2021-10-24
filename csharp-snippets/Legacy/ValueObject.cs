@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Legacy
+namespace Richargh.BillionDollar.Legacy
 {
     /// <summary>
     /// A Value Object is determined not by its identity but by its values.

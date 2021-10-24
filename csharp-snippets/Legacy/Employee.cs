@@ -1,4 +1,4 @@
-﻿namespace Legacy
+﻿namespace Richargh.BillionDollar.Legacy
 {
     public class Employee
     {

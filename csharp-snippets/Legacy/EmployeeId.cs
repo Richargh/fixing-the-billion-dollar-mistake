@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Legacy
+namespace Richargh.BillionDollar.Legacy
 {
     public class EmployeeId : ValueObject
     {

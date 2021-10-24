@@ -1,7 +1,7 @@
 // we can turn on null checks for selected files
 #nullable enable
 
-namespace Legacy
+namespace Richargh.BillionDollar.Legacy
 {
     public class EnabledNullChecks
     {

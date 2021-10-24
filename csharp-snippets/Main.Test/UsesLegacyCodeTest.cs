@@ -1,6 +1,6 @@
 using System;
 using FluentAssertions;
-using Legacy;
+using Richargh.BillionDollar.Legacy;
 using Xunit;
 
 namespace Richargh.BillionDollar.Main.Test

@@ -1,4 +1,4 @@
-using Legacy;
+using Richargh.BillionDollar.Legacy;
 
 namespace Richargh.BillionDollar.Main
 {
