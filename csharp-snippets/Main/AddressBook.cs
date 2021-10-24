@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Richargh.BillionDollar.Repo;
+using Richargh.BillionDollar.Main.Repo;
 
-namespace Richargh.BillionDollar
+namespace Richargh.BillionDollar.Main
 {
     public class AddressBook : GenericRepository<PersonId, Person>
     {

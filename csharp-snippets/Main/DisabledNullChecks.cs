@@ -1,7 +1,7 @@
 // we can turn of null checks for really complex files
 #nullable disable
 
-namespace Richargh.BillionDollar
+namespace Richargh.BillionDollar.Main
 {
     public static class DisabledNullChecks
     {

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Richargh.BillionDollar.Repo;
 
-namespace Richargh.BillionDollar.Repo
+namespace Richargh.BillionDollar.Main.Repo
 {
     public abstract class GenericRepository<TId, TEntity> 
         where TId : notnull

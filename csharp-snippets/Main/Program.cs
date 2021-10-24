@@ -1,4 +1,6 @@
-﻿namespace Richargh.BillionDollar
+﻿using Richargh.BillionDollar.Main;
+
+namespace Richargh.BillionDollar
 {
     class Program
     {

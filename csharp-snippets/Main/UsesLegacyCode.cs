@@ -1,6 +1,6 @@
 using Legacy;
 
-namespace Richargh.BillionDollar
+namespace Richargh.BillionDollar.Main
 {
     public class UsesLegacyCode
     {

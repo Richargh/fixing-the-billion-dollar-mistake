@@ -1,6 +1,6 @@
 using Richargh.BillionDollar.Repo;
 
-namespace Richargh.BillionDollar
+namespace Richargh.BillionDollar.Main
 {
     public class Person : IEntity<PersonId>
     {
