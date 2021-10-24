@@ -3,13 +3,13 @@ using Xunit;
 
 namespace Richargh.BillionDollar.Main.Test
 {
-    public class AddressBookTest
+    public class PeopleTest
     {
         [Fact(DisplayName="Should find nothing when AddressBook is empty")]
         public void ShouldFindNothing()
         {
             // given
-            var testee = new AddressBook();
+            var testee = new People();
             // when
             var result = testee.FindById(new PersonId("1"));
             // then
@@ -21,7 +21,7 @@ namespace Richargh.BillionDollar.Main.Test
         {
             // given
             var person = new Person(new PersonId("1"), "Fiona");
-            var testee = new AddressBook(person);
+            var testee = new People(person);
             // when
             var result = testee.FindById(person.Id);
             // then
