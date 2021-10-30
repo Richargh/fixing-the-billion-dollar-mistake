@@ -26,4 +26,22 @@ class PeopleSpec extends FunSuite with Matchers {
     result should not be(null)
   }
 
+  test("should not require a person to have a name") {
+    // given
+    // when
+    val person = new Person(PersonId("1"), None)
+    // then
+    val result = person.name
+    result shouldBe None
+  }
+
+  test("should allow a person to have a name") {
+    // given
+    // when
+    val person = new Person(PersonId("1"), Some("Alex"))
+    // then
+    val result = person.name
+    result shouldBe defined
+  }
+
 }
