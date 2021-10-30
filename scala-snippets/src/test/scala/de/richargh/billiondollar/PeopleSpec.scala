@@ -12,7 +12,7 @@ class PeopleSpec extends FunSuite with Matchers {
     // when
     val result = testee.findById(PersonId("1"))
     // then
-    result should be(None)
+    result shouldBe None
   }
 
   test("should find a person when they're part of the people") {
@@ -23,7 +23,7 @@ class PeopleSpec extends FunSuite with Matchers {
     testee.put(person)
     // then
     val result = testee.findById(person.id)
-    result should not be(null)
+    result shouldBe defined
   }
 
   test("should not require a person to have a name") {

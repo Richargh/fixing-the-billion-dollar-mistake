@@ -13,7 +13,7 @@ class DictionarySpec extends FunSuite with Matchers {
     // when
     val result = numberPlates.get("HH")
     // then
-    result should be(None)
+    result shouldBe None
   }
 
   test("should find a number plate when it's in the dictionary") {
@@ -22,7 +22,7 @@ class DictionarySpec extends FunSuite with Matchers {
     // when
     val result = numberPlates.get("F")
     // then
-    result should be(Some("Frankfurt"))
+    result shouldBe Some("Frankfurt")
   }
 
 }

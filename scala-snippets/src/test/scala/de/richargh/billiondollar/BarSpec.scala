@@ -13,7 +13,7 @@ class BarSpec extends FunSuite with Matchers {
     // when
     val result = testee.findById(new DrinkId("1"))
     // then
-    result should be(null)
+    result shouldBe null
   }
 
   test("should find a drink after we've place it in the bar") {
