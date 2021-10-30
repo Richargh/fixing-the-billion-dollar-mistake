@@ -9,21 +9,21 @@ class BarSpec extends FunSuite with Matchers {
 
   test("should not find a drink when nothing is in the bar") {
     // given
-    val drinks = new Bar()
+    val testee = new Bar()
     // when
-    val result = drinks.findById(new DrinkId("1"))
+    val result = testee.findById(new DrinkId("1"))
     // then
     result should be(null)
   }
 
   test("should find a drink after we've place it in the bar") {
     // given
-    val drinks = new Bar()
+    val testee = new Bar()
     val drink = new Drink(new DrinkId("1"), "Naildriver")
     // when
-    drinks.place(drink)
+    testee.place(drink)
     // then
-    val result = drinks.findById(drink.id())
+    val result = testee.findById(drink.id())
     result should not be(null)
   }
 
