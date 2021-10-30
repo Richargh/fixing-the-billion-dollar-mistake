@@ -7,6 +7,8 @@ object App {
   def main(args: Array[String]) {
     println("Hello World!")
     println("concat arguments = " + foo(args))
+    val drinks = new Bar()
+    val drink = new Drink(new DrinkId("1"), "Naildriver")
   }
 
 }
