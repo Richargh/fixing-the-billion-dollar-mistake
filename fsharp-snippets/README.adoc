@@ -1,0 +1,22 @@
+= Fixing the Billion Dollar Mistake in F#
+
+== Usage
+
+. Run console: `dotnet run -p main`
+. Run tests: `dotnet test`
+
+== Null in F#
+
+link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/values/null-values[Null Values]:
+
+> The null value is not normally used in F# for values or variables. [...] If a type is defined in some other .NET language, null is a possible value, and when you are interoperating with such types, your F# code might encounter null values.
+
+> You can use the option type in F# when you might use a reference variable with a possible null value in another .NET language.
+
+> To interpret a null value that is obtained from a .NET method, use pattern matching if you can.
+
+So far F# does not have nullable reference types. The language models optional features with `Option<T>`.
+
+== Other Language Constructs
+
+* Ternary operator: `if .. then .. else`
