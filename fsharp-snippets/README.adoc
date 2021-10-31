@@ -63,6 +63,9 @@ See also link:https://github.com/fsprojects/awesome-fsharp[Awesome F#].
 
 == Reading
 
+* link:https://fsharp.org/learn/[Learning F#]
+* link:https://dungpa.github.io/fsharp-cheatsheet/[F# Cheat Sheet]
+* link:https://github.com/knocte/2fsharp/blob/master/csharp2fsharp.md[Guide for C# developers]
 * link:https://swlaschin.gitbooks.io/fsharpforfunandprofit/content/[F# for Fun and Profit Gitbook]
 * link:https://fsharpforfunandprofit.com/troubleshooting-fsharp/[Troubleshooting F#]
 * link:https://danielbachler.de/2020/12/23/what-i-wish-i-knew-when-learning-fsharp.html[What I wish I knew when learning F#]
