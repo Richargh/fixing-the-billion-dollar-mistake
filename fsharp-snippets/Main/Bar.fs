@@ -42,7 +42,7 @@ type InMemoryBar([<ParamArray>] drinks: Drink[]) =
             |> List.map(fun (_, drink) -> drink)
 
         member this.FindById id = 
-            Some(allDrinks.[id])
+            allDrinks.TryFind id
 
         member this.Put (drink: Drink) = 
             allDrinks <- allDrinks.Add(drink.Id, drink)
