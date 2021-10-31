@@ -5,7 +5,9 @@
 . Run console: `dotnet run -p main`
 . Run tests: `dotnet test`
 
-== Null in F#
+== F#
+
+=== Null in F#
 
 link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/values/null-values[Null Values]:
 
@@ -17,6 +19,50 @@ link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/values/nu
 
 So far F# does not have nullable reference types. The language models optional features with `Option<T>`.
 
-== Other Language Constructs
+=== Idiomatic F#
 
 * Ternary operator: `if .. then .. else`
+* To test non-equality use `<>`: `let a = 1 <> 2`
+* The exclamation point symbol is not the “NOT” operator. Use `not` instead: `let b = not a`
+* To write "error-tolerant code that can be composed" use link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/results[Result] instead of exceptions or similar
+* Lambdas with fun: `List.map (fun x -> x.Length)`
+* Dictionaries, dict, or map? Use `map` as your default. It's standard F# and immutable.
+* `let!`, `do!` etc. link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/computation-expressions[computation expressions]
+
+.Collections
+[source,f#]
+----
+// F# prefers it's immutable collections over the C# mutable ones
+let linkedList = [ 1; 2; 3]
+let fixedArray = [| 1; 2; 3 |]
+let lazySequence = seq { yield 1; yield 2; yield 3 }
+let set = Set([1; 2; 3])
+let map = Map([ ("first", 42); ("second", 23)])
+
+let incrementedSequence =
+    lazySequence
+    |> Seq.map (fun x -> x + 1)
+
+let incrementedArray =
+    fixedArray
+    |> Array.map (fun x -> x + 1)
+----
+
+=== F# Idiosyncrasy
+
+* Declarations in each file must be ordered based on dependencies. Declarations without outgoing dependencies at the top, those who depend on others at the bottom. You cannot use something you have not declared yet.
+* Projects must be structured in a similar way. If an F# project *does not want to compile or a module cannot be found* it's probably because the file order in the `*.fsproj` is not correct. The `Program.fs` must be at the bottom. At the top are files that do not depend on any other files.
+* In many object-oriented languages, upcasting is implicit; in F#, the link:https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/casting-and-conversions#upcasting[rules are slightly different]. Upcasting is applied automatically when you pass arguments to methods on an object type. However, for let, upcasting is not automatic. You can use `upcast obj` or `upcast obj : Type` for such cases.
+
+== Libraries
+
+* Web with link:https://github.com/giraffe-fsharp/Giraffe[Giraffe] or link:https://saturnframework.org/[Saturn]
+* Testing with link:https://github.com/haf/expecto[Expecto]
+
+See also link:https://github.com/fsprojects/awesome-fsharp[Awesome F#].
+
+== Reading
+
+* link:https://swlaschin.gitbooks.io/fsharpforfunandprofit/content/[F# for Fun and Profit Gitbook]
+* link:https://fsharpforfunandprofit.com/troubleshooting-fsharp/[Troubleshooting F#]
+* link:https://danielbachler.de/2020/12/23/what-i-wish-i-knew-when-learning-fsharp.html[What I wish I knew when learning F#]

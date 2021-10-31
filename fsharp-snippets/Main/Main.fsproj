@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Bar.fs" />
+    <Compile Include="Controller.fs" />
+    <Compile Include="DictionaryExample.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
 
