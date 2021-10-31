@@ -13,13 +13,14 @@ let testInterop =
     printMaker employee1
     printMaker employee2
     
-let createPseudoWebApp = 
-    let bar = barOf([||])
-    let barController = DrinkController(bar)
-    ()
+let createPseudoController drinks = 
+    let bar = barOf drinks
+    DrinkController bar
     
 [<EntryPoint>]
 let main argv =
     testInterop
-    createPseudoWebApp
+    let drink = {Id = {RawValue = "1"}; Name = "Naildriver"; CreatorId = None}
+    let controller = createPseudoController [|drink|]
+    printf $"Drink name is ${controller.Get 1}"
     0 // return an integer exit code

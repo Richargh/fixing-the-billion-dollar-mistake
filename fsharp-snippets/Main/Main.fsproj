@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Compile Include="Bar.fs" />
+    <Compile Include="Dtos.fs" />
     <Compile Include="Controller.fs" />
     <Compile Include="DictionaryExample.fs" />
   </ItemGroup>
