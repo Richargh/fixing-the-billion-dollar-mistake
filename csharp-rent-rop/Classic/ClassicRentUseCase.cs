@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
-using static Richargh.BillionDollar.Classic.RentResult;
+using Richargh.BillionDollar.Classic.Common.Web;
+using static Richargh.BillionDollar.Classic.Common.Web.Responses;
 
 namespace Richargh.BillionDollar.Classic
 {
@@ -19,46 +20,46 @@ namespace Richargh.BillionDollar.Classic
             _emailProvider = emailProvider;
         }
         
-        public RentResult Rent(NotebookType type, EmployeeId eId)
+        public IResponse Rent(NotebookType type, EmployeeId eId)
         {
             var employee = _employees.FindById(eId);
-            if (employee == null)
+            if (employee is null)
             {
-                return NotRented;
+                return Bad("Employee does not exist", 400);
             }
             if (AlreadyHasANotebook(employee))
             {
-                return NotRented;
+                return Bad("Employee already has a notebook", 409);
             }
             var notebook = _inventory
                 .FindNotebooksByType(type)
                 .FirstOrDefault(IsAvailable);
-            if (notebook == null)
+            if (notebook is null)
             {
-                return NotRented;
+                return Bad("Notebook does not exist", 400);
             }
 
             var budget = _budget.FindById(eId);
             if (budget is null)
             {
-                return NotRented;
+                return Bad("Employee has no budget", 400);
             }
             
             if (HasNotEnoughBudget(budget, notebook))
             {
-                return NotRented;
+                return Bad("Employee has not enough budget for the notebook", 409);
             }
 
             try
             {
                 var remainingBudget = RentNotebook(employee, budget, notebook);
                 NotifyOfRent(employee, notebook, remainingBudget);
-                return Rented;
+                return Ok(notebook);
             }
             catch (MyDbException e)
             {
                 Console.WriteLine(e);
-                return NotRented;
+                return Bad("Could not rent the notebook", 500);
             }
         }
 

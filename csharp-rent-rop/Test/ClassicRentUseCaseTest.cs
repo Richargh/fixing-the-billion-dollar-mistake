@@ -2,6 +2,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using Richargh.BillionDollar.Classic;
+using Richargh.BillionDollar.Classic.Common.Web;
 using Xunit;
 
 namespace Richargh.BillionDollar.Test
@@ -22,7 +23,7 @@ namespace Richargh.BillionDollar.Test
             // then
             using (new AssertionScope())
             {
-                result.Should().Be(RentResult.Rented);
+                result.Should().BeOfType<OkResponse<Notebook>>();
             }
         }
         
@@ -40,12 +41,8 @@ namespace Richargh.BillionDollar.Test
             // when
             var result = testee.Rent(notebook.NotebookType, employee.Id);
             // then
-            using (new AssertionScope())
-            {
-                result.Should().Be(RentResult.Rented);
-                mockEmailProvider.Verify(mock =>
-                    mock.SendEmail(It.IsAny<EmployeeId>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            }
+            mockEmailProvider.Verify(mock =>
+                mock.SendEmail(It.IsAny<EmployeeId>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
         
         [Fact(DisplayName="renting should be impossible, when employee has too little budget remaining for notebook")]
@@ -60,7 +57,7 @@ namespace Richargh.BillionDollar.Test
             // when
             var result = testee.Rent(notebook.NotebookType, employee.Id);
             // then
-            result.Should().Be(RentResult.NotRented);
+            result.Should().BeOfType<BadResponse>();
         }
         
         [Fact(DisplayName="renting should be impossible, when employee does not exist")]
@@ -74,7 +71,7 @@ namespace Richargh.BillionDollar.Test
             // when
             var result = testee.Rent(notebook.NotebookType, budget.Id);
             // then
-            result.Should().Be(RentResult.NotRented);
+            result.Should().BeOfType<BadResponse>();
         }
         
         [Fact(DisplayName="renting should be impossible, when no notebook of expected type is available")]
@@ -89,7 +86,7 @@ namespace Richargh.BillionDollar.Test
             // when
             var result = testee.Rent(NotebookType.Office, employee.Id);
             // then
-            result.Should().Be(RentResult.NotRented);
+            result.Should().BeOfType<BadResponse>();
         }
         
         [Fact(DisplayName="renting should be impossible, when nothing exists")]
@@ -101,7 +98,7 @@ namespace Richargh.BillionDollar.Test
             // when
             var result = testee.Rent(NotebookType.Performance, new EmployeeId("1"));
             // then
-            result.Should().Be(RentResult.NotRented);
+            result.Should().BeOfType<BadResponse>();
         }
         
         [Fact(DisplayName="when renting is impossible, no email should be sent")]
