@@ -1,0 +1,16 @@
+= Classic vs Railway-Oriented Programming (ROP) in C#
+
+== Tech Stack
+
+* C#9 and .NET 5
+* Xunit
+
+== Usage
+
+. Run classic console: `dotnet run -p classic`
+. Run ROP console: `dotnet run -p rop`
+. Run tests: `dotnet test`
+
+== Links
+
+* link:https://fsharpforfunandprofit.com/rop/[Railway-oriented Programming], coined by link:https://twitter.com/ScottWlaschin[Scott Wlaschin]
