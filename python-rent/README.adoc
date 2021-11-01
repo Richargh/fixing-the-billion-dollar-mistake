@@ -33,7 +33,7 @@ One of the reasons for that is that it's evolved significantly over the years an
 * 1.0 (1994): Initial release
 * 2.0 (2000): link:https://web.archive.org/web/20091214142515/http://www.amk.ca/python/2.0[list comprehensions]
 * 3.0 (2008): intentionally backwards incompatible release to rectify fundamental design flaws in Python <3, link:https://www.python.org/dev/peps/pep-3107/[Function Annotations]
-* 3.5 (2015): link:https://www.python.org/dev/peps/pep-0484/[type hints], see also link:https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html[Python Type Hints Cheat Sheet] and link:https://dropbox.tech/application/our-journey-to-type-checking-4-million-lines-of-python[how Dropbox added type hints to 4 million lines of Python]
+* 3.5 (2015): link:https://www.python.org/dev/peps/pep-0484/[type hints and `Optional[T]`], see also link:https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html[Python Type Hints Cheat Sheet] and link:https://dropbox.tech/application/our-journey-to-type-checking-4-million-lines-of-python[how Dropbox added type hints to 4 million lines of Python]
 * 3.7 (2018): link:https://www.python.org/dev/peps/pep-0557/[data classes]
 * 3.8 (2019): link:https://www.python.org/dev/peps/pep-0544/[Protocols]
 * 3.10 (2021): link:https://www.python.org/dev/peps/pep-0604/[special union type syntax], link:https://www.python.org/dev/peps/pep-0622/[Structural Pattern Matching]
