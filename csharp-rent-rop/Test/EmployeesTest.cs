@@ -21,7 +21,7 @@ namespace Richargh.BillionDollar.Test
         public void ShouldFindEmployeeAfterPut()
         {
             // given
-            var employee = new Employee(new EmployeeId("1"), "Fiona");
+            var employee = new Employee(new EmployeeId("1"), "Fiona", null);
             var testee = new Employees();
             // when
             testee.Put(employee);
@@ -34,7 +34,7 @@ namespace Richargh.BillionDollar.Test
         public void ShouldFindAlreadyKnownEmployee()
         {
             // given
-            var employee = new Employee(new EmployeeId("1"), "Fiona");
+            var employee = new Employee(new EmployeeId("1"), "Fiona", null);
             var testee = new Employees(employee);
             // when
             var result = testee.FindById(employee.Id);

@@ -2,6 +2,8 @@ using System.Linq;
 using FluentAssertions;
 using Richargh.BillionDollar.Classic;
 using Xunit;
+using static Richargh.BillionDollar.Classic.NotebookServiceStatus;
+using static Richargh.BillionDollar.Classic.NotebookType;
 
 namespace Richargh.BillionDollar.Test
 {
@@ -22,7 +24,8 @@ namespace Richargh.BillionDollar.Test
         public void ShouldFindNotebookAfterPut()
         {
             // given
-            var notebook = new Notebook(new NotebookId("1"), NotebookType.Performance, "Bell", "GT Banana");
+            var notebook = new Notebook(
+                new NotebookId("1"), Performance, "Bell", "GT Banana", new Money(1_000), Available);
             var testee = new Inventory();
             testee.Put(notebook);
             // when
@@ -32,10 +35,11 @@ namespace Richargh.BillionDollar.Test
         }
         
         [Fact(DisplayName="Should find employee when already in the Repository")]
-        public void ShouldFindAlreadyKnownEmployee()
+        public void ShouldFindAlreadyKnownNotebook()
         {
             // given
-            var notebook = new Notebook(new NotebookId("1"), NotebookType.Performance, "Bell", "GT Banana");
+            var notebook = new Notebook(
+                new NotebookId("1"), Performance, "Bell", "GT Banana", new Money(1_000), Available);
             var testee = new Inventory(notebook);
             // when
             var result = testee.FindNotebookById(notebook.Id);
@@ -47,13 +51,15 @@ namespace Richargh.BillionDollar.Test
         public void ShouldFindNotebookByType()
         {
             // given
-            var performance = new Notebook(new NotebookId("1"), NotebookType.Performance, "Bell", "GT Banana");
-            var office = new Notebook(new NotebookId("2"), NotebookType.Office, "Bell", "M Cherry");
+            var performance = new Notebook(
+                new NotebookId("1"), Performance, "Bell", "GT Banana", new Money(1_000), Available);
+            var office = new Notebook(
+                new NotebookId("2"), Office, "Bell", "M Cherry", new Money(500), Available);
             var testee = new Inventory();
             testee.Put(performance);
             testee.Put(office);
             // when
-            var result = testee.FindNotebooksByType(NotebookType.Performance);
+            var result = testee.FindNotebooksByType(Performance);
             // then
             result.Single().Should().BeEquivalentTo(performance);
         }
