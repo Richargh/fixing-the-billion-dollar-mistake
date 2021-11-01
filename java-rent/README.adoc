@@ -8,3 +8,14 @@
 == Usage
 
 . Run tests: `mvn test`
+
+== Java
+
+The Java version history can be found link:https://en.wikipedia.org/wiki/Java_version_history[at Wikipedia] or via the link:https://www.java.com/releases/[releases page]. A blog about the newer features can be found link:https://www.marcobehler.com/guides/a-guide-to-java-versions-and-features[here].
+
+* 1 (1996): Initial release
+* 5 (2004): Generics, Autoboxing, Enumerations, Varargs, `for each`, `java.util.concurrent`
+* link:https://openjdk.java.net/projects/jdk8/features[8] (2014): Optional, which is `A container object which may or may not contain a non-null value`
+* 14 (2020): link:https://openjdk.java.net/jeps/358[Helpful Nullpointer exceptions] (pinpoint what caused the nullpointer, not just filename and line number)
+* 16 (2021): link:https://openjdk.java.net/jeps/395[records], link:https://openjdk.java.net/jeps/394[Pattern matching for instanceof].
+* 17 (2021): link:https://openjdk.java.net/jeps/409[sealed classes and interfaces]
