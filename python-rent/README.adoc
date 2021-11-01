@@ -25,11 +25,14 @@ Install link:https://github.com/pyenv/pyenv[Pyenv] and configure your shell (`~/
 
 == Python
 
-Python has been around for a long time: version 1.0 was released January 1994, compare that with Java 1.0 (January 1996), Javascript (December 1995) and C# 1.0 (January 2002).
-Since it's original release it has grown steadily in popularity and since link:https://www.tiobe.com/tiobe-index/[October 2021 the TIOBE index considers it the most popular programming language].
+Python has been around for a long time: version 1.0 was released January 1994, compare that with Java 1.0 (January 1996), Javascript (December 1995) and C# 1.0 (January 2002). The documentation by version can be found link:https://www.python.org/doc/versions/[here], but there is also a link:http://python-history.blogspot.com/2009/01/brief-timeline-of-python.html[brief timeline] by Python's creator Guido van Rossum.
+
+Since it's original release Python has grown steadily in popularity and since link:https://www.tiobe.com/tiobe-index/[October 2021 the TIOBE index considers it the most popular programming language].
 One of the reasons for that is that it's evolved significantly over the years and received numerous interesting new features:
 
-* 3.0 (2000): link:https://www.python.org/dev/peps/pep-3107/[Function Annotations]
+* 1.0 (1994): Initial release
+* 2.0 (2000): link:https://web.archive.org/web/20091214142515/http://www.amk.ca/python/2.0[list comprehensions]
+* 3.0 (2008): intentionally backwards incompatible release to rectify fundamental design flaws in Python <3, link:https://www.python.org/dev/peps/pep-3107/[Function Annotations]
 * 3.5 (2015): link:https://www.python.org/dev/peps/pep-0484/[type hints], see also link:https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html[Python Type Hints Cheat Sheet] and link:https://dropbox.tech/application/our-journey-to-type-checking-4-million-lines-of-python[how Dropbox added type hints to 4 million lines of Python]
 * 3.7 (2018): link:https://www.python.org/dev/peps/pep-0557/[data classes]
 * 3.8 (2019): link:https://www.python.org/dev/peps/pep-0544/[Protocols]
