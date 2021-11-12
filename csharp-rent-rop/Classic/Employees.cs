@@ -16,7 +16,7 @@ namespace Richargh.BillionDollar.Classic
             return _employees.FindById(id);
         }
 
-        public void Put(Employee employee)
+        public void Store(Employee employee)
         {
             _employees.Put(employee);
         }

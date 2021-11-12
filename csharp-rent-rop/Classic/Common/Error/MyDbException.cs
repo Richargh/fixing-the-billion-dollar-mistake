@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Richargh.BillionDollar.Classic
+namespace Richargh.BillionDollar.Classic.Common.Error
 {
     [Serializable]
     public class MyDbException: Exception

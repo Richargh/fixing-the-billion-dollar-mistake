@@ -5,7 +5,11 @@ namespace Richargh.BillionDollar.Test
     public class EmployeeFactory
     {
         
-        public static Employee AnEmployeeWithoutANotebook(string id = "1") => 
-            new(new EmployeeId(id), "Alex", NotebookId:null); 
+        public static Employee AnEmployeeWithoutANotebook(string id = "1") => new(
+                new EmployeeId(id), 
+                new Name("Alex"), 
+                new Email("foo@bar.de"), 
+                new Address(new Town("Vilnius"), new Street("Konstitucijos Av. 20")),
+                NotebookId:null); 
     }
 }

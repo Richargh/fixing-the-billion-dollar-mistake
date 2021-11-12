@@ -1,11 +1,12 @@
 using System;
 using System.Linq;
+using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Web;
 using static Richargh.BillionDollar.Classic.Common.Web.Responses;
 
 namespace Richargh.BillionDollar.Classic
 {
-    public class ClassicRentUseCase
+    public class ClassicRentUseCase :  IRentUseCase
     {
         private readonly Inventory _inventory;
         private readonly Employees _employees;
@@ -36,7 +37,7 @@ namespace Richargh.BillionDollar.Classic
                 .FirstOrDefault(IsAvailable);
             if (notebook is null)
             {
-                return Bad("Notebook does not exist", 400);
+                return Bad("No Notebook of desired type is available", 409);
             }
 
             var budget = _budget.FindById(eId);
@@ -66,7 +67,7 @@ namespace Richargh.BillionDollar.Classic
         private EmployeeBudget RentNotebook(Employee employee, EmployeeBudget budget, Notebook notebook)
         {
             // realistically we'd need some form of transaction/rollback here
-            _employees.Put(employee with{NotebookId = notebook.Id});
+            _employees.Store(employee with{NotebookId = notebook.Id});
             _inventory.Put(notebook with{Status = NotebookServiceStatus.Rented});
             var remainingBudget = budget with{Remaining = budget.Remaining - notebook.Cost};
             _budget.Put(remainingBudget);
