@@ -48,7 +48,7 @@ namespace Richargh.BillionDollar.Test
             var testee = _createTestee(
                 new Inventory(notebook), new Employees(employee), new Budget(budget), mockEmailProvider.Object);
             // when
-            var result = testee.Rent(notebook.NotebookType, employee.Id);
+            testee.Rent(notebook.NotebookType, employee.Id);
             // then
             mockEmailProvider.Verify(mock =>
                 mock.SendEmail(It.IsAny<EmployeeId>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
@@ -123,7 +123,7 @@ namespace Richargh.BillionDollar.Test
             var testee = _createTestee(
                 new Inventory(), new Employees(), new Budget(), mockEmailProvider.Object);
             // when
-            var result = testee.Rent(NotebookType.Performance, new EmployeeId("1"));
+            testee.Rent(NotebookType.Performance, new EmployeeId("1"));
             // then
             mockEmailProvider.Verify(mock =>
                 mock.SendEmail(It.IsAny<EmployeeId>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);

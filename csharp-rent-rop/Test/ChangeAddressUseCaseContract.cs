@@ -90,7 +90,7 @@ namespace Richargh.BillionDollar.Test
                 address);
             var testee = _createTestee(new Employees(), mockEmailProvider.Object);
             // when
-            var result = testee.ChangeAddress(request);
+            testee.ChangeAddress(request);
             // then
             
             mockEmailProvider.Verify(mock =>
