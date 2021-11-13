@@ -8,7 +8,7 @@ namespace Richargh.BillionDollar.Test
         public static Employee AnEmployeeWithoutANotebook(string id = "1") => new(
                 new EmployeeId(id), 
                 new Name("Alex"), 
-                new Email("foo@bar.de"), 
+                new EmailAddress("foo@bar.de"), 
                 new Address(new Town("Vilnius"), new Street("Konstitucijos Av. 20")),
                 NotebookId:null); 
     }
