@@ -1,11 +1,11 @@
 ﻿namespace Richargh.BillionDollar.Rop.Common.Rop
 {
-    public abstract class Result<TValue, TScope> where TValue : notnull where TScope : IScope
+    public abstract class ScopedResult<TValue, TScope> where TValue : notnull where TScope : IScope
     {
-        // private constructor so no one outside this class can instantiate
         public TScope Scope { get; }
         
-        private Result(TScope scope)
+        // private constructor so no one outside this class can instantiate
+        private ScopedResult(TScope scope)
         {
             Scope = scope;
         }
@@ -14,7 +14,7 @@
         public static Ok OfOk(TValue value, TScope scope) => new Ok(value, scope);
         public static Fail OfFail(string error, TScope scope) => new Fail(error, scope);
         
-        public sealed class Ok : Result<TValue, TScope>
+        public sealed class Ok : ScopedResult<TValue, TScope>
         {
             public TValue Value { get; }
             
@@ -24,7 +24,7 @@
             }
         }
         
-        public sealed class Fail : Result<TValue, TScope>
+        public sealed class Fail : ScopedResult<TValue, TScope>
         {
             public string Error { get; }
             
