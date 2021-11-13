@@ -57,12 +57,12 @@ namespace Richargh.BillionDollar.Rop
 
         private bool HasNotEnoughBudget(EmployeeBudget budget, Notebook notebook) => budget.Remaining < notebook.Cost;
 
-        private ScopedResult<EmployeeBudget, RopUseCaseScope> BudgetForEmployee(EmployeeId eId)
+        private Result<EmployeeBudget> BudgetForEmployee(EmployeeId eId)
         {
             return _budget.FindById(eId).AsNullable("Budget does not exist", RopUseCaseScope.Empty());
         }
 
-        private ScopedResult<Notebook, RopUseCaseScope> FirstNotebookOfType(NotebookType type)
+        private Result<Notebook> FirstNotebookOfType(NotebookType type)
         {
             return _inventory
                 .FindNotebooksByType(type)
@@ -70,16 +70,16 @@ namespace Richargh.BillionDollar.Rop
                 .AsNullable("No Notebook of desired type is available", RopUseCaseScope.Empty());
         }
 
-        private ScopedResult<Employee, RopUseCaseScope> FindEmployee(EmployeeId eId)
+        private Result<Employee> FindEmployee(EmployeeId eId)
         {
             return _employees.FindById(eId).AsNullable("Employee does not exist", RopUseCaseScope.Empty());
         }
 
-        private ScopedResult<Employee, RopUseCaseScope> HasNoExistingNotebook(Employee employee)
+        private Result<Employee> HasNoExistingNotebook(Employee employee)
             => employee.NotebookId switch
             {
-                null => ScopedResult<Employee, RopUseCaseScope>.OfFail("Already has a notebook", RopUseCaseScope.Empty()),
-                _ => ScopedResult<Employee, RopUseCaseScope>.OfOk(employee, RopUseCaseScope.Empty())
+                null => Result<Employee>.OfFail("Already has a notebook"),
+                _ => Result<Employee>.OfOk(employee)
             };
 
         private EmployeeBudget RentNotebook(Employee employee, EmployeeBudget budget, Notebook notebook)
