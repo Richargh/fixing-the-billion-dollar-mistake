@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Richargh.BillionDollar.Test
 {
-    public class RentUseCaseContract
+    public abstract class RentUseCaseContract
     {
         private readonly Func<Inventory, Employees, Budget, IEmailProvider, IRentUseCase> _createTestee;
 
