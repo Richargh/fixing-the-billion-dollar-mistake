@@ -22,7 +22,7 @@ namespace Richargh.BillionDollar.Classic
             {
                 return new BadResponse(400, "EmployeeId invalid");
             }
-            var employee = _employees.FindById(employeeId);
+            var employee = FindEmployee(employeeId);
             if (employee is null)
             {
                 return new BadResponse(400, "Employee not found");
@@ -33,22 +33,30 @@ namespace Richargh.BillionDollar.Classic
                 return new BadResponse(400, "Address invalid");
             }
             employee = employee.ChangeAddress(address);
+            
+            StoreEmployee(employee);
             try
             {
-                _employees.Store(employee);
+                EmailEmployee(employee);
             }
-            catch (MyDbException)
+            catch (EmailAddressUnknownException)
             {
-                return new BadResponse(500, "Could not change email");
+                return new BadResponse(400, "EmailAddress invalid");
             }
-            GreetEmployee(employee.EmailAddress);
             return new OkResponse(200);
         }
 
-        private void GreetEmployee(EmailAddress emailAddress)
+        private void StoreEmployee(Employee employee)
+        {
+            _employees.Store(employee);
+        }
+
+        private Employee? FindEmployee(EmployeeId employeeId) => _employees.FindById(employeeId);
+
+        private void EmailEmployee(Employee employee)
         {
             _emailProvider.SendEmail(
-                emailAddress, 
+                employee.EmailAddress, 
                 "Address changed", 
                 "We changed your address. Please notify us if this was not you.");
         }

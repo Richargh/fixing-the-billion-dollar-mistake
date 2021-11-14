@@ -1,12 +1,13 @@
 using System;
 using Richargh.BillionDollar.Classic.Common.Error;
 
-namespace Richargh.BillionDollar.Rop.Common.Rop
+namespace Richargh.BillionDollar.Classic.Common.Rop
 {
     public static class Results
     {
         public static Result<TValue>.Ok Ok<TValue>(TValue value) where TValue: notnull => new(value);
         public static Result<TValue>.Fail Fail<TValue>(string error) where TValue : notnull => new(error);
+        public static Result<TValue>.Fail Fail<TValue>(Failure failure) where TValue : notnull => new(failure.Message);
         
         public static Result<TValue> AsResult<TValue>(
             this TValue? value, string errorIfNull) 
@@ -14,6 +15,14 @@ namespace Richargh.BillionDollar.Rop.Common.Rop
             => value switch
             {
                 null => Fail<TValue>(errorIfNull),
+                _ => Ok(value)
+            };
+        public static Result<TValue> AsResult<TValue>(
+            this TValue? value, Failure failureIfNull) 
+            where TValue : notnull 
+            => value switch
+            {
+                null => Fail<TValue>(failureIfNull.Message),
                 _ => Ok(value)
             };
         

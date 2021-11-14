@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
 using Richargh.BillionDollar.Classic;
 using Richargh.BillionDollar.Classic.Common.Error;
+using Richargh.BillionDollar.Classic.Common.Rop;
 using Richargh.BillionDollar.Classic.Common.Web;
-using Richargh.BillionDollar.Rop.Common.Rop;
-using static Richargh.BillionDollar.Rop.Common.Rop.Results;
+using static Richargh.BillionDollar.Classic.Common.Rop.Results;
 
 namespace Richargh.BillionDollar.Rop
 {
@@ -42,20 +42,20 @@ namespace Richargh.BillionDollar.Rop
         {
             var rawId = path["employeeId"];
             return string.IsNullOrWhiteSpace(rawId)
-                ? Fail<EmployeeId>("EmployeeId invalid")
+                ? Fail<EmployeeId>(R.Employee.EmployeeIdInvalid())
                 : Ok(new EmployeeId(rawId));
         }
 
         private Result<Employee> FindEmployee(EmployeeId employeeId)
-            => _employees.FindById(employeeId).AsResult("Employee not found");
+            => _employees.FindById(employeeId).AsResult(R.Employee.EmployeeNotFound());
 
         private Result<Address> AddressFromBody(string requestBody)
         {
             var dto = JsonConvert.DeserializeObject<AddressDto>(requestBody);
             if (string.IsNullOrWhiteSpace(dto.town))
-                return Fail<Address>("Missing town field in Address");
+                return Fail<Address>(R.Employee.ChangeAddress.AddressInvalid("Missing town field in Address"));
             if (dto.street is not null && string.IsNullOrWhiteSpace(dto.street))
-                return Fail<Address>("When present, street field must not be empty");
+                return Fail<Address>(R.Employee.ChangeAddress.AddressInvalid("When present, street field must not be empty"));
 
             return Ok(new Address(
                 new Town(dto.town), 
@@ -72,9 +72,9 @@ namespace Richargh.BillionDollar.Rop
                     "We changed your address. Please notify us if this was not you.");
                 return Ok(employee);
             }
-            catch (MyEmailException)
+            catch (EmailAddressUnknownException)
             {
-                return Fail<Employee>("Could not send email");
+                return Fail<Employee>(R.Employee.ChangeAddress.EmployeeEmailUnknown());
             }
         }
     }

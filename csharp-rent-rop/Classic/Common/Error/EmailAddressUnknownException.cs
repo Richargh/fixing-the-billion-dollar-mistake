@@ -4,19 +4,19 @@ using System.Runtime.Serialization;
 namespace Richargh.BillionDollar.Classic.Common.Error
 {
     [Serializable]
-    public class MyEmailException: Exception
+    public class EmailAddressUnknownException: EmailException
     {
-        public MyEmailException(string message) 
+        public EmailAddressUnknownException(string message) 
             : base(message)
         {
         }
         
-        public MyEmailException(string message, Exception innerException) 
+        public EmailAddressUnknownException(string message, Exception innerException) 
             : base(message, innerException)
         {
         }
         
-        protected MyEmailException(SerializationInfo info, StreamingContext context)
+        protected EmailAddressUnknownException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

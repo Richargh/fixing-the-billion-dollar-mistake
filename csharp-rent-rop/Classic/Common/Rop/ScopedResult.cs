@@ -1,4 +1,4 @@
-﻿namespace Richargh.BillionDollar.Rop.Common.Rop
+﻿namespace Richargh.BillionDollar.Classic.Common.Rop
 {
     public abstract class ScopedResult<TValue, TScope> where TValue : notnull where TScope : IScope
     {

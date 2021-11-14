@@ -1,9 +1,9 @@
 using System.Linq;
 using Richargh.BillionDollar.Classic;
 using Richargh.BillionDollar.Classic.Common.Error;
+using Richargh.BillionDollar.Classic.Common.Rop;
 using Richargh.BillionDollar.Classic.Common.Web;
-using Richargh.BillionDollar.Rop.Common.Rop;
-using static Richargh.BillionDollar.Rop.Common.Rop.Results;
+using static Richargh.BillionDollar.Classic.Common.Rop.Results;
 
 namespace Richargh.BillionDollar.Rop
 {
@@ -34,12 +34,6 @@ namespace Richargh.BillionDollar.Rop
                 .ThenTry3(employee, notebook, NotifyOfRent)
                 .Finally3(employee, notebook, CreateOkResponse, CreateBadResponse);
         }
-        
-        private IResponse CreateOkResponse(EmployeeBudget budget, Employee employee, Notebook notebook) 
-            => new OkResponse(employee, 200);
-
-        private IResponse CreateBadResponse(string message) 
-            => new BadResponse(400, message);
 
         private Result<EmployeeBudget> HasEnoughBudget(EmployeeBudget budget, Notebook notebook)
         {
@@ -49,7 +43,7 @@ namespace Richargh.BillionDollar.Rop
             }
             else
             {
-                return Fail<EmployeeBudget>("Employee has not enough budget for the notebook");
+                return Fail<EmployeeBudget>(R.Budget.NotEnoughBudget());
             }
         }
 
@@ -57,7 +51,7 @@ namespace Richargh.BillionDollar.Rop
 
         private Result<EmployeeBudget> BudgetForEmployee(EmployeeId eId)
         {
-            return _budget.FindById(eId).AsResult(errorIfNull:"Budget does not exist");
+            return _budget.FindById(eId).AsResult(R.Budget.EmployeeBudgetNotFound());
         }
 
         private Result<Notebook> FirstNotebookOfType(NotebookType type)
@@ -65,19 +59,19 @@ namespace Richargh.BillionDollar.Rop
             return _inventory
                 .FindNotebooksByType(type)
                 .FirstOrDefault(IsAvailable)
-                .AsResult(errorIfNull:"No Notebook of desired type is available");
+                .AsResult(R.Budget.RentNotebook.NoNotebookOfType());
         }
 
         private Result<Employee> FindEmployee(EmployeeId eId)
         {
-            return _employees.FindById(eId).AsResult(errorIfNull:"Employee does not exist");
+            return _employees.FindById(eId).AsResult(R.Employee.EmployeeNotFound());
         }
 
         private Result<Employee> HasNoExistingNotebook(Employee employee)
             => employee.NotebookId switch
             {
                 null => Ok(employee),
-                _ => Fail<Employee>("Already has a notebook")
+                _ => Fail<Employee>(R.Budget.RentNotebook.EmployeeAlreadyHasNotebook())
             };
 
         private EmployeeBudget RentNotebook(EmployeeBudget budget, Employee employee, Notebook notebook)
@@ -99,13 +93,19 @@ namespace Richargh.BillionDollar.Rop
                 _emailProvider.SendEmail(employee.Id, subject, text);
                 return Ok(remainingBudget);
             }
-            catch (MyEmailException)
+            catch (EmailAddressUnknownException)
             {
-                return Fail<EmployeeBudget>("Could not send Email");
+                return Fail<EmployeeBudget>(R.Budget.RentNotebook.EmployeeEmailUnknown());
             }
         }
 
 
         private bool IsAvailable(Notebook notebook) => notebook.Status == NotebookServiceStatus.Available;
+        
+        private IResponse CreateOkResponse(EmployeeBudget budget, Employee employee, Notebook notebook) 
+            => new OkResponse(employee, 200);
+
+        private IResponse CreateBadResponse(string message) 
+            => new BadResponse(400, message);
     }
 }

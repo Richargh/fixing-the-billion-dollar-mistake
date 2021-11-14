@@ -1,4 +1,4 @@
-﻿namespace Richargh.BillionDollar.Rop.Common.Rop
+﻿namespace Richargh.BillionDollar.Classic.Common.Rop
 {
     public abstract class Result<TValue> where TValue : notnull
     {
