@@ -16,7 +16,7 @@ namespace Richargh.BillionDollar.Classic
             _notebookTypes = new Dictionary<NotebookType, ISet<NotebookId>>();
             foreach (var notebook in notebooks)
             {
-                Put(notebook);
+                Store(notebook);
             }
         }
         
@@ -31,7 +31,7 @@ namespace Richargh.BillionDollar.Classic
             return idsForType.Select(id => _notebooks.FindById(id)).WhereNotNull();
         }
 
-        public void Put(Notebook notebook)
+        public void Store(Notebook notebook)
         {
             _notebooks.Put(notebook);
             if (!_notebookTypes.ContainsKey(notebook.NotebookType)){

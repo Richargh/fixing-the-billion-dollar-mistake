@@ -24,7 +24,7 @@ namespace Richargh.BillionDollar.Test
             var budget = new EmployeeBudget(new EmployeeId("1"), new Money(10));
             var testee = new Budget();
             // when
-            testee.Put(budget);
+            testee.Store(budget);
             // then
             var result = testee.FindById(budget.Id);
             result.Should().BeEquivalentTo(budget);

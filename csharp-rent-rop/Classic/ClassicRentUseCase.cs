@@ -68,9 +68,9 @@ namespace Richargh.BillionDollar.Classic
         {
             // realistically we'd need some form of transaction/rollback here
             _employees.Store(employee with{NotebookId = notebook.Id});
-            _inventory.Put(notebook with{Status = NotebookServiceStatus.Rented});
+            _inventory.Store(notebook with{Status = NotebookServiceStatus.Rented});
             var remainingBudget = budget with{Remaining = budget.Remaining - notebook.Cost};
-            _budget.Put(remainingBudget);
+            _budget.Store(remainingBudget);
             return remainingBudget;
         }
 

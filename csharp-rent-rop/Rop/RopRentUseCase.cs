@@ -1,7 +1,9 @@
 using System.Linq;
 using Richargh.BillionDollar.Classic;
+using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Web;
 using Richargh.BillionDollar.Rop.Common.Rop;
+using static Richargh.BillionDollar.Rop.Common.Rop.Results;
 
 namespace Richargh.BillionDollar.Rop
 {
@@ -22,36 +24,32 @@ namespace Richargh.BillionDollar.Rop
         
         public IResponse Rent(NotebookType type, EmployeeId eId)
         {
-            var employeeR = FindEmployee(eId)
-                .Map(HasNoExistingNotebook);
-            var notebookR = FirstNotebookOfType(type);
-            return new BadResponse(500, "todo");
-            // BudgetForEmployee(eId)
-            //     .Map2(notebookR, HasEnoughBudget);
-            //     .Map3(RentNotebook)
-            //
-            // try
-            // {
-            //     var remainingBudget = RentNotebook(employeeR, budget, notebookR);
-            //     NotifyOfRent(employeeR, notebookR, remainingBudget);
-            //     return Ok(notebookR);
-            // }
-            // catch (MyDbException e)
-            // {
-            //     Console.WriteLine(e);
-            //     return Bad("Could not rent the notebook", 500);
-            // }
-        }
+            var employee = FindEmployee(eId)
+                .ThenTry(HasNoExistingNotebook);
+            var notebook = FirstNotebookOfType(type);
 
-        private ScopedResult<EmployeeBudget, RopUseCaseScope> HasEnoughBudget(EmployeeBudget budget, Notebook notebook)
+            return BudgetForEmployee(eId)
+                .ThenTry2(notebook, HasEnoughBudget)
+                .Then3(employee, notebook, RentNotebook)
+                .ThenTry3(employee, notebook, NotifyOfRent)
+                .Finally3(employee, notebook, CreateOkResponse, CreateBadResponse);
+        }
+        
+        private IResponse CreateOkResponse(EmployeeBudget budget, Employee employee, Notebook notebook) 
+            => new OkResponse(employee, 200);
+
+        private IResponse CreateBadResponse(string message) 
+            => new BadResponse(400, message);
+
+        private Result<EmployeeBudget> HasEnoughBudget(EmployeeBudget budget, Notebook notebook)
         {
             if (budget.Remaining > notebook.Cost)
             {
-               return ScopedResult<EmployeeBudget, RopUseCaseScope>.OfOk(budget, RopUseCaseScope.Empty());
+               return Ok(budget);
             }
             else
             {
-                return ScopedResult<EmployeeBudget, RopUseCaseScope>.OfFail("Employee has not enough budget for the notebook", RopUseCaseScope.Empty());
+                return Fail<EmployeeBudget>("Employee has not enough budget for the notebook");
             }
         }
 
@@ -59,7 +57,7 @@ namespace Richargh.BillionDollar.Rop
 
         private Result<EmployeeBudget> BudgetForEmployee(EmployeeId eId)
         {
-            return _budget.FindById(eId).AsNullable("Budget does not exist", RopUseCaseScope.Empty());
+            return _budget.FindById(eId).AsResult(errorIfNull:"Budget does not exist");
         }
 
         private Result<Notebook> FirstNotebookOfType(NotebookType type)
@@ -67,36 +65,44 @@ namespace Richargh.BillionDollar.Rop
             return _inventory
                 .FindNotebooksByType(type)
                 .FirstOrDefault(IsAvailable)
-                .AsNullable("No Notebook of desired type is available", RopUseCaseScope.Empty());
+                .AsResult(errorIfNull:"No Notebook of desired type is available");
         }
 
         private Result<Employee> FindEmployee(EmployeeId eId)
         {
-            return _employees.FindById(eId).AsNullable("Employee does not exist", RopUseCaseScope.Empty());
+            return _employees.FindById(eId).AsResult(errorIfNull:"Employee does not exist");
         }
 
         private Result<Employee> HasNoExistingNotebook(Employee employee)
             => employee.NotebookId switch
             {
-                null => Result<Employee>.OfFail("Already has a notebook"),
-                _ => Result<Employee>.OfOk(employee)
+                null => Ok(employee),
+                _ => Fail<Employee>("Already has a notebook")
             };
 
-        private EmployeeBudget RentNotebook(Employee employee, EmployeeBudget budget, Notebook notebook)
+        private EmployeeBudget RentNotebook(EmployeeBudget budget, Employee employee, Notebook notebook)
         {
             // realistically we'd need some form of transaction/rollback here
             _employees.Store(employee with{NotebookId = notebook.Id});
-            _inventory.Put(notebook with{Status = NotebookServiceStatus.Rented});
+            _inventory.Store(notebook with{Status = NotebookServiceStatus.Rented});
             var remainingBudget = budget with{Remaining = budget.Remaining - notebook.Cost};
-            _budget.Put(remainingBudget);
+            _budget.Store(remainingBudget);
             return remainingBudget;
         }
 
-        private void NotifyOfRent(Employee employee, Notebook notebook, EmployeeBudget remainingBudget)
+        private Result<EmployeeBudget> NotifyOfRent(EmployeeBudget remainingBudget, Employee employee, Notebook notebook)
         {
             var subject = $"Rented '{notebook.Maker} {notebook.Model}' for you";
             var text = $"Your new budget is {remainingBudget.Remaining.Amount}";
-            _emailProvider.SendEmail(employee.Id, subject, text);
+            try
+            {
+                _emailProvider.SendEmail(employee.Id, subject, text);
+                return Ok(remainingBudget);
+            }
+            catch (MyEmailException)
+            {
+                return Fail<EmployeeBudget>("Could not send Email");
+            }
         }
 
 

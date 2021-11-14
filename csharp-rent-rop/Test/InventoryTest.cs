@@ -27,7 +27,7 @@ namespace Richargh.BillionDollar.Test
             var notebook = new Notebook(
                 new NotebookId("1"), Performance, "Bell", "GT Banana", new Money(1_000), Available);
             var testee = new Inventory();
-            testee.Put(notebook);
+            testee.Store(notebook);
             // when
             var result = testee.FindNotebookById(notebook.Id);
             // then
@@ -56,8 +56,8 @@ namespace Richargh.BillionDollar.Test
             var office = new Notebook(
                 new NotebookId("2"), Office, "Bell", "M Cherry", new Money(500), Available);
             var testee = new Inventory();
-            testee.Put(performance);
-            testee.Put(office);
+            testee.Store(performance);
+            testee.Store(office);
             // when
             var result = testee.FindNotebooksByType(Performance);
             // then

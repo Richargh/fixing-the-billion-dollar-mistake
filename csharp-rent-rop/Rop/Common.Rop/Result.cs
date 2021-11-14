@@ -7,10 +7,6 @@
         {
         }
 
-        // TODO remove ofOK from Result to avoid super-long types
-        public static Ok OfOk(TValue value) => new Ok(value);
-        public static Fail OfFail(string error) => new Fail(error);
-        
         public sealed class Ok : Result<TValue>
         {
             public TValue Value { get; }
