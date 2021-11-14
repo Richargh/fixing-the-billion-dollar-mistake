@@ -2,9 +2,9 @@ namespace Richargh.BillionDollar.Classic.Common.Web
 {
     public static class Responses
     {
-        public static OkResponse Ok(object data) => Ok(200, data);
-        public static OkResponse Ok(int status, object data) => new(data, status);
-        public static BadResponse Bad(string message, int status) => new(status, message);
+        public static GoodResponse Good(object data) => Good(data, Status.Ok);
+        public static GoodResponse Good(object data, Status status) => new((int)status, data);
+        public static BadResponse Bad(Status status, string code, string message) => new((int)status, code, message);
     }
     
     public interface IResponse
@@ -12,35 +12,41 @@ namespace Richargh.BillionDollar.Classic.Common.Web
         int Status { get; }
     }
 
-    public class OkResponse : IResponse
+    public class GoodResponse : IResponse
     {
-        public object? Data { get; }
 
         public int Status { get; }
+        public object? Body { get; }
         
-        public OkResponse(object data, int status)
+        
+        public GoodResponse(int status)
         {
-            Data = data;
             Status = status;
+            Body = default;
         }
         
-        public OkResponse(int status)
+        public GoodResponse(int status, object body)
         {
-            Data = default;
             Status = status;
+            Body = body;
         }
     }
     
     public class BadResponse : IResponse
     {
-        public string Message { get; }
+        public object Body { get; }
 
         public int Status { get; }
         
-        public BadResponse(int status, string message)
+        public BadResponse(int status, string code, string message)
         {
             Status = status;
-            Message = message;
+            Body = new
+            {
+                Status = status,
+                Code = code,
+                Message = message
+            };
         }
     }
 }

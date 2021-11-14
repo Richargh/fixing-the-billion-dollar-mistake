@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using Richargh.BillionDollar.Classic.Common;
 using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Web;
 using static Richargh.BillionDollar.Classic.Common.Web.Responses;
@@ -26,41 +26,40 @@ namespace Richargh.BillionDollar.Classic
             var employee = _employees.FindById(eId);
             if (employee is null)
             {
-                return Bad("Employee does not exist", 400);
+                return Bad(Status.BadRequest, "", "Employee does not exist");
             }
             if (AlreadyHasANotebook(employee))
             {
-                return Bad("Employee already has a notebook", 409);
+                return Bad(Status.BadRequest, "", "Employee already has a notebook");
             }
             var notebook = _inventory
                 .FindNotebooksByType(type)
                 .FirstOrDefault(IsAvailable);
             if (notebook is null)
             {
-                return Bad("No Notebook of desired type is available", 409);
+                return Bad(Status.BadRequest, "", "No Notebook of desired type is available");
             }
 
             var budget = _budget.FindById(eId);
             if (budget is null)
             {
-                return Bad("Employee has no budget", 400);
+                return Bad(Status.BadRequest, "", "Employee has no budget");
             }
             
             if (HasNotEnoughBudget(budget, notebook))
             {
-                return Bad("Employee has not enough budget for the notebook", 409);
+                return Bad(Status.BadRequest, "", "Employee has not enough budget for the notebook");
             }
 
+            var remainingBudget = RentNotebook(employee, budget, notebook);
             try
             {
-                var remainingBudget = RentNotebook(employee, budget, notebook);
                 NotifyOfRent(employee, notebook, remainingBudget);
-                return Ok(notebook);
+                return Good(notebook);
             }
-            catch (MyDbException e)
+            catch (EmailAddressUnknownException)
             {
-                Console.WriteLine(e);
-                return Bad("Could not rent the notebook", 500);
+                return Bad(Status.Conflict, "", "Could not rent the notebook");
             }
         }
 

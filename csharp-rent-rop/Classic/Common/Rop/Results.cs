@@ -6,23 +6,14 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
     public static class Results
     {
         public static Result<TValue>.Ok Ok<TValue>(TValue value) where TValue: notnull => new(value);
-        public static Result<TValue>.Fail Fail<TValue>(string error) where TValue : notnull => new(error);
-        public static Result<TValue>.Fail Fail<TValue>(Failure failure) where TValue : notnull => new(failure.Message);
+        public static Result<TValue>.Fail Fail<TValue>(Failure failure) where TValue : notnull => new(failure);
         
-        public static Result<TValue> AsResult<TValue>(
-            this TValue? value, string errorIfNull) 
-            where TValue : notnull 
-            => value switch
-            {
-                null => Fail<TValue>(errorIfNull),
-                _ => Ok(value)
-            };
         public static Result<TValue> AsResult<TValue>(
             this TValue? value, Failure failureIfNull) 
             where TValue : notnull 
             => value switch
             {
-                null => Fail<TValue>(failureIfNull.Message),
+                null => Fail<TValue>(failureIfNull),
                 _ => Ok(value)
             };
         
@@ -72,9 +63,9 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             if (result is Result<TIn>.Ok ok1 && intermediate is Result<TOut>.Ok ok2)
                 return Ok((ok1.Value, ok2.Value));
             if(result is Result<TIn>.Fail fail1)
-                return Fail<(TIn, TOut)>(fail1.Error);
+                return Fail<(TIn, TOut)>(fail1.Failure);
             if (intermediate is Result<TOut>.Fail fail2)
-                return Fail<(TIn, TOut)>(fail2.Error);
+                return Fail<(TIn, TOut)>(fail2.Failure);
             
             throw new DeveloperMistake("Did not cover all possibilities." +
                                        $" {nameof(result)}:{result.GetType()}" +
@@ -154,12 +145,12 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
         public static TOut Finally<TIn, TOut>(
             this Result<TIn> result,
             Func<TIn, TOut> onOk,
-            Func<string, TOut> onFail) 
+            Func<Failure, TOut> onFail) 
             where TIn : notnull 
             => result switch
             {
                 Result<TIn>.Ok ok => onOk(ok.Value),
-                Result<TIn>.Fail fail => onFail(fail.Error),
+                Result<TIn>.Fail fail => onFail(fail.Failure),
                 // This should be impossible but the type system sadly allows this
                 _ => throw new SwitchNotExhaustiveException(result)
             };
@@ -167,13 +158,13 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
         private static Result<TOut> Either<TIn, TOut>(
             this Result<TIn> result, 
             Func<TIn, Result<TOut>> onOk,
-            Func<string, Result<TOut>> onFail) 
+            Func<Failure, Result<TOut>> onFail) 
             where TIn : notnull 
             where TOut : notnull
             => result switch
             {
                 Result<TIn>.Ok ok => onOk(ok.Value),
-                Result<TIn>.Fail fail => onFail(fail.Error),
+                Result<TIn>.Fail fail => onFail(fail.Failure),
                 // This should be impossible but the type system sadly allows this
                 _ => throw new SwitchNotExhaustiveException(result)
             };
@@ -182,7 +173,7 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             this Result<TIn1> result, 
             Result<TIn2> other, 
             Func<TIn1, TIn2, TOut> onOk,
-            Func<string, TOut> onFail) 
+            Func<Failure, TOut> onFail) 
             where TIn1 : notnull 
             where TIn2 : notnull 
             where TOut : notnull
@@ -190,9 +181,9 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             if (result is Result<TIn1>.Ok ok1 && other is Result<TIn2>.Ok ok2)
                 return onOk(ok1.Value, ok2.Value);
             if(result is Result<TIn1>.Fail fail1)
-                return onFail(fail1.Error);
+                return onFail(fail1.Failure);
             if (other is Result<TIn2>.Fail fail2)
-                return onFail(fail2.Error);
+                return onFail(fail2.Failure);
             
             throw new DeveloperMistake("Did not cover all possibilities." +
                                        $" {nameof(result)}:{result.GetType()}" +
@@ -204,7 +195,7 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             this Result<TIn1> result, 
             Result<TIn2> other, 
             Func<TIn1, TIn2, Result<TOut>> onOk,
-            Func<string, Result<TOut>> onFail) 
+            Func<Failure, Result<TOut>> onFail) 
             where TIn1 : notnull 
             where TIn2 : notnull 
             where TOut : notnull
@@ -212,9 +203,9 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             if (result is Result<TIn1>.Ok ok1 && other is Result<TIn2>.Ok ok2)
                 return onOk(ok1.Value, ok2.Value);
             if(result is Result<TIn1>.Fail fail1)
-                return onFail(fail1.Error);
+                return onFail(fail1.Failure);
             if (other is Result<TIn2>.Fail fail2)
-                return onFail(fail2.Error);
+                return onFail(fail2.Failure);
             
             throw new DeveloperMistake("Did not cover all possibilities." +
                                        $" {nameof(result)}:{result.GetType()}" +
@@ -227,7 +218,7 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             Result<TIn2> other1, 
             Result<TIn3> other2, 
             Func<TIn1, TIn2, TIn3, TOut> onOk,
-            Func<string, TOut> onFail) 
+            Func<Failure, TOut> onFail) 
             where TIn1 : notnull 
             where TIn2 : notnull 
             where TIn3 : notnull 
@@ -236,11 +227,11 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             if (result is Result<TIn1>.Ok ok1 && other1 is Result<TIn2>.Ok ok2 && other2 is Result<TIn3>.Ok ok3)
                 return onOk(ok1.Value, ok2.Value, ok3.Value);
             if(result is Result<TIn1>.Fail fail1)
-                return onFail(fail1.Error);
+                return onFail(fail1.Failure);
             if (other1 is Result<TIn2>.Fail fail2)
-                return onFail(fail2.Error);
+                return onFail(fail2.Failure);
             if (other2 is Result<TIn3>.Fail fail3)
-                return onFail(fail3.Error);
+                return onFail(fail3.Failure);
             
             throw new DeveloperMistake("Did not cover all possibilities." +
                                        $" {nameof(result)} {result.GetType()}" +
@@ -254,7 +245,7 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             Result<TIn2> other1, 
             Result<TIn3> other2, 
             Func<TIn1, TIn2, TIn3, Result<TOut>> onOk,
-            Func<string, Result<TOut>> onFail) 
+            Func<Failure, Result<TOut>> onFail) 
             where TIn1 : notnull 
             where TIn2 : notnull 
             where TIn3 : notnull 
@@ -263,11 +254,11 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
             if (result is Result<TIn1>.Ok ok1 && other1 is Result<TIn2>.Ok ok2 && other2 is Result<TIn3>.Ok ok3)
                 return onOk(ok1.Value, ok2.Value, ok3.Value);
             if(result is Result<TIn1>.Fail fail1)
-                return onFail(fail1.Error);
+                return onFail(fail1.Failure);
             if (other1 is Result<TIn2>.Fail fail2)
-                return onFail(fail2.Error);
+                return onFail(fail2.Failure);
             if (other2 is Result<TIn3>.Fail fail3)
-                return onFail(fail3.Error);
+                return onFail(fail3.Failure);
             
             throw new DeveloperMistake("Did not cover all possibilities." +
                                        $" {nameof(result)} {result.GetType()}" +

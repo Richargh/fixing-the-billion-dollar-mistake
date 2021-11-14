@@ -1,9 +1,11 @@
 using Newtonsoft.Json;
 using Richargh.BillionDollar.Classic;
+using Richargh.BillionDollar.Classic.Common;
 using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Rop;
 using Richargh.BillionDollar.Classic.Common.Web;
 using static Richargh.BillionDollar.Classic.Common.Rop.Results;
+using static Richargh.BillionDollar.Classic.Common.Web.Responses;
 
 namespace Richargh.BillionDollar.Rop
 {
@@ -29,9 +31,9 @@ namespace Richargh.BillionDollar.Rop
                 .Finally(CreateOkResponse, CreateBadResponse);
         }
 
-        private IResponse CreateOkResponse(Employee employee) => new OkResponse(employee, 200);
+        private IResponse CreateOkResponse(Employee employee) => Good(employee, Status.Ok);
 
-        private IResponse CreateBadResponse(string message) => new BadResponse(400, message);
+        private IResponse CreateBadResponse(Failure failure) => Bad(failure.Status, failure.Code, failure.Message);
 
         private void StoreEmployee(Employee employee)
         {

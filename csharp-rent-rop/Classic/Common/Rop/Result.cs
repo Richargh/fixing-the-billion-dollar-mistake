@@ -1,4 +1,6 @@
-﻿namespace Richargh.BillionDollar.Classic.Common.Rop
+﻿using Richargh.BillionDollar.Classic.Common.Error;
+
+namespace Richargh.BillionDollar.Classic.Common.Rop
 {
     public abstract class Result<TValue> where TValue : notnull
     {
@@ -19,11 +21,11 @@
         
         public sealed class Fail : Result<TValue>
         {
-            public string Error { get; }
+            public Failure Failure { get; }
             
-            public Fail(string error)
+            public Fail(Failure failure)
             {
-                Error = error;
+                Failure = failure;
             }
         }
     }

@@ -35,7 +35,7 @@ namespace Richargh.BillionDollar.Test
             // then
             using (new AssertionScope())
             {
-                result.Should().BeOfType<OkResponse>();
+                result.Should().BeOfType<GoodResponse>();
                 employees.FindById(employee.Id)!.Address.Should().Be(expectedAddress);
             }
         }

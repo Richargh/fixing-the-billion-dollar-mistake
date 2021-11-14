@@ -31,7 +31,7 @@ namespace Richargh.BillionDollar.Test
             // then
             using (new AssertionScope())
             {
-                result.Should().BeOfType<OkResponse>();
+                result.Should().BeOfType<GoodResponse>();
             }
         }
         

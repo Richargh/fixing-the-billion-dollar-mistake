@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
+using Richargh.BillionDollar.Classic.Common;
 using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Web;
+using static Richargh.BillionDollar.Classic.Common.Web.Responses;
 
 namespace Richargh.BillionDollar.Classic
 {
@@ -20,17 +22,17 @@ namespace Richargh.BillionDollar.Classic
             var employeeId = EmployeeIdFromPath(request.Path);
             if (employeeId is null)
             {
-                return new BadResponse(400, "EmployeeId invalid");
+                return Bad(Status.BadRequest, "", "EmployeeId invalid");
             }
             var employee = FindEmployee(employeeId);
             if (employee is null)
             {
-                return new BadResponse(400, "Employee not found");
+                return Bad(Status.BadRequest, "", "Employee not found");
             }
             var address = AddressFromBody(request.Body);
             if (address is null)
             {
-                return new BadResponse(400, "Address invalid");
+                return Bad(Status.BadRequest, "", "Address invalid");
             }
             employee = employee.ChangeAddress(address);
             
@@ -41,9 +43,9 @@ namespace Richargh.BillionDollar.Classic
             }
             catch (EmailAddressUnknownException)
             {
-                return new BadResponse(400, "EmailAddress invalid");
+                return Bad(Status.BadRequest, "", "EmailAddress invalid");
             }
-            return new OkResponse(200);
+            return Good(200);
         }
 
         private void StoreEmployee(Employee employee)
