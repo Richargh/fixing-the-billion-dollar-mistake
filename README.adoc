@@ -2,4 +2,6 @@
 
 Example code in different languages for handling the billion dollar mistake.
 
-Also includes Examples for Railway-oriented programming.
+Some languages have code "snippets" folders where I play around with some language features, for example link:csharp-snippets[C# Snippets].
+C# in particular also has a folder where I show some link:csharp-rent-rop[Railway-oriented Programming] code to handle employees and them renting notebooks.
+A simpler version of this code can be found in the link:java-rent[Java] and link:python-rent[Python] folders.
