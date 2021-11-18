@@ -11,6 +11,15 @@
 . Run ROP console: `dotnet run -p rop`
 . Run tests: `dotnet test`
 
+== Railway-Oriented Programming examples
+
+Keep in mind that this repo has its own link:Classic/Common/Rop/Result.cs[Result] implementation.
+It's not using an existing library.
+The code that enables ROP is only three classes big though, so it's easy to get around.
+
+* Check out the link:Test/RegisterEmployeeUseCaseContract.cs[Register Employee UseCase] first, then look at the link:Classic/ClassicRegisterEmployeeUseCase.cs[Classic implementation] and the link:Rop/RopRegisterEmployeeUseCase.cs[ROP implementation].
+* After that you are free to check out any of the other use cases or their contracts. :) 
+
 == Links
 
 * link:https://fsharpforfunandprofit.com/rop/[Railway-oriented Programming], coined by link:https://twitter.com/ScottWlaschin[Scott Wlaschin]
