@@ -11,10 +11,11 @@ namespace Richargh.BillionDollar.Classic
             _employees = new SimpleRepository<EmployeeId, Employee>(employees);
         }
         
-        public Employee? FindById(EmployeeId id)
-        {
-            return _employees.FindById(id);
-        }
+        public Employee? FindById(EmployeeId id) 
+            => _employees.FindById(id);
+
+        public Employee? FindByEmail(EmailAddress address) 
+            => _employees.Find(pair => address.Equals(pair.Value.EmailAddress));
 
         public void Store(Employee employee)
         {

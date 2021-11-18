@@ -16,10 +16,6 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
                 null => Fail<TValue>(failureIfNull),
                 _ => Ok(value)
             };
-        
-        public static Result<TValue> AsOk<TValue>(this TValue value) 
-            where TValue : notnull
-            => Ok(value);
 
         public static Result<TOut> Then<TIn, TOut>(
             this Result<TIn> result, 
@@ -49,6 +45,16 @@ namespace Richargh.BillionDollar.Classic.Common.Rop
                 result,
                 onOk,
                 Fail<TOut>);
+        
+        public static Result<T> ThenTryDo<T>(
+            this Result<T> result, 
+            Func<T, bool> failurePredicate,
+            Func<Failure> failureIfNotPredicate)
+            where T : notnull
+            => Either(
+                result,
+                value =>  failurePredicate(value) ? Fail<T>(failureIfNotPredicate()) : Ok(value),
+                Fail<T>);
         
         public static Result<(TIn, TOut)> ThenTryToPair<TIn, TOut>(
             this Result<TIn> result, 

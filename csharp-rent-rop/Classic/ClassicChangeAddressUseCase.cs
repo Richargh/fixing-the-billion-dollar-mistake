@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using Richargh.BillionDollar.Classic.Common;
 using Richargh.BillionDollar.Classic.Common.Error;
 using Richargh.BillionDollar.Classic.Common.Web;
@@ -29,7 +28,7 @@ namespace Richargh.BillionDollar.Classic
             {
                 return Bad(Status.BadRequest, "", "Employee not found");
             }
-            var address = AddressFromBody(request.Body);
+            var address = DtoMapper.AddressFromBody(request.Body);
             if (address is null)
             {
                 return Bad(Status.BadRequest, "", "Address invalid");
@@ -63,19 +62,6 @@ namespace Richargh.BillionDollar.Classic
                 "We changed your address. Please notify us if this was not you.");
         }
 
-        private Address? AddressFromBody(string requestBody)
-        {
-            var dto = JsonConvert.DeserializeObject<AddressDto>(requestBody);
-            if (string.IsNullOrWhiteSpace(dto.town))
-                return null;
-            if (dto.street is not null && string.IsNullOrWhiteSpace(dto.street))
-                return null;
-
-            return new Address(
-                new Town(dto.town), 
-                dto.street is null ? null : new Street(dto.street));
-        }
-
         private EmployeeId? EmployeeIdFromPath(Path path)
         {
             var rawId = path["employeeId"];
@@ -84,6 +70,5 @@ namespace Richargh.BillionDollar.Classic
                 : new EmployeeId(rawId);
         }
 
-        
     }
 }

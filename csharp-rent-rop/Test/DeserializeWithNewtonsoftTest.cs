@@ -27,9 +27,9 @@ namespace Richargh.BillionDollar.Test
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();
-                result!.Id.Should().Be("1");   
-                result!.Name.Should().Be("Alex");   
-                result!.Email.Should().BeNull();   
+                result!.id.Should().Be("1");   
+                result!.name.Should().Be("Alex");   
+                result!.email.Should().BeNull();   
             }
         }
         
@@ -52,9 +52,9 @@ namespace Richargh.BillionDollar.Test
             using (new AssertionScope())
             {
                 result.Should().NotBeNull();
-                result!.Id.Should().Be("1");   
-                result!.Name.Should().Be("Alex");   
-                result!.Email.Should().Be("-1");   
+                result!.id.Should().Be("1");   
+                result!.name.Should().Be("Alex");   
+                result!.email.Should().Be("-1");   
             }
         }
         
@@ -76,9 +76,9 @@ namespace Richargh.BillionDollar.Test
             {
                 // sadly all of this is true
                 result.Should().NotBeNull();
-                result!.Id.Should().BeNull();   
-                result!.Name.Should().BeNull();   
-                result!.Email.Should().BeNull();   
+                result!.id.Should().BeNull();   
+                result!.name.Should().BeNull();   
+                result!.email.Should().BeNull();   
             }
         }
         
@@ -101,9 +101,9 @@ namespace Richargh.BillionDollar.Test
             {
                 // sadly all of this is true
                 result.Should().NotBeNull();
-                result!.Id.Should().Be("1");   
-                result!.Name.Should().BeNull();   
-                result!.Email.Should().BeNull();   
+                result!.id.Should().Be("1");   
+                result!.name.Should().BeNull();   
+                result!.email.Should().BeNull();   
             }
         }
     }

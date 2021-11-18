@@ -6,6 +6,7 @@ using Richargh.BillionDollar.Classic.Common.Rop;
 using Richargh.BillionDollar.Classic.Common.Web;
 using static Richargh.BillionDollar.Classic.Common.Rop.Results;
 using static Richargh.BillionDollar.Classic.Common.Web.Responses;
+using static Richargh.BillionDollar.Rop.DtoMapper;
 
 namespace Richargh.BillionDollar.Rop
 {
@@ -51,19 +52,6 @@ namespace Richargh.BillionDollar.Rop
         private Result<Employee> FindEmployee(EmployeeId employeeId)
             => _employees.FindById(employeeId).AsResult(R.Employee.EmployeeNotFound());
 
-        private Result<Address> AddressFromBody(string requestBody)
-        {
-            var dto = JsonConvert.DeserializeObject<AddressDto>(requestBody);
-            if (string.IsNullOrWhiteSpace(dto.town))
-                return Fail<Address>(R.Employee.ChangeAddress.AddressInvalid("Missing town field in Address"));
-            if (dto.street is not null && string.IsNullOrWhiteSpace(dto.street))
-                return Fail<Address>(R.Employee.ChangeAddress.AddressInvalid("When present, street field must not be empty"));
-
-            return Ok(new Address(
-                new Town(dto.town), 
-                dto.street is null ? null : new Street(dto.street)));
-        }
-        
         private Result<Employee> EmailEmployee(Employee employee)
         {
             try

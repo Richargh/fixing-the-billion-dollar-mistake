@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,12 @@ namespace Richargh.BillionDollar.Classic.Common.Entity
         public TEntity? FindById(TId id)
         {
             return _allEntities.GetValueOrDefault(id);
+        }
+
+        public TEntity? Find(Func<KeyValuePair<TId,TEntity>,bool> predicate)
+        {
+            var result = _allEntities.FirstOrDefault(predicate);
+            return result.Value;
         }
 
         public void Put(TEntity entity)
