@@ -1,0 +1,36 @@
+= Fixing the Billion Dollar Mistake in Java with NullAway
+
+== Tech Stack
+
+* link:http://errorprone.info/[ErrorProne]
+* link:https://github.com/uber/NullAway[NullAway]
+** The tool assumes that the absence of a `@Nullable` annotation means the type is non-null.
+* Junit 5
+
+== Usage
+
+.Use correct Java SDK via link:https://sdkman.io/[SDKMan]
+[source,bash]
+----
+sdk env use
+----
+
+'''
+
+.Check Null
+[source,bash]
+----
+mvn compile
+----
+
+.Run Test
+[source,bash]
+----
+mvn test
+----
+
+.Verify
+[source,bash]
+----
+mvn clean verify
+----
