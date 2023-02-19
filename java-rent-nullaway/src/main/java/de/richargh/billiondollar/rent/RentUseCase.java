@@ -5,7 +5,6 @@ import de.richargh.billiondollar.rent.exposed.ItemId;
 import de.richargh.billiondollar.rent.exposed.Renter;
 import de.richargh.billiondollar.rent.exposed.RenterId;
 import de.richargh.billiondollar.rent.internal.Inventory;
-import de.richargh.billiondollar.rent.internal.RentScope;
 import de.richargh.billiondollar.rent.internal.Renters;
 
 import java.util.Optional;
@@ -41,10 +40,10 @@ public class RentUseCase {
     }
 
     private Optional<RentScope> rentScope(Item item, Optional<Renter> renter) {
-        if (renter.isPresent()) {
-            return Optional.of(new RentScope(item, renter.get()));
-        } else {
-            return Optional.empty();
-        }
+        return renter.map(value -> new RentScope(item, value));
     }
+}
+
+record RentScope(Item item, Renter renter) {
+
 }
