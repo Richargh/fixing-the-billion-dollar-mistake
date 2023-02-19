@@ -1,6 +1,6 @@
 package de.richargh.billiondollar.rent.exposed;
 
-import java.util.Optional;
+import edu.umd.cs.findbugs.annotations.Nullable;
 
 public class Item {
 
@@ -8,10 +8,11 @@ public class Item {
 
     private final String name;
 
-    private final Optional<RenterId> rentedBy;
+    @Nullable
+    private final RenterId rentedBy;
 
     // Primary Constructor
-    public Item(ItemId id, String name, Optional<RenterId> rentedBy) {
+    public Item(ItemId id, String name, @Nullable RenterId rentedBy) {
         this.id = id;
         this.name = name;
         this.rentedBy = rentedBy;
@@ -26,6 +27,6 @@ public class Item {
     }
 
     public boolean isRented() {
-        return !rentedBy.isEmpty();
+        return rentedBy != null;
     }
 }

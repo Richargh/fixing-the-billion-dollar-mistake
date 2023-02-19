@@ -23,7 +23,7 @@ public class Inventory {
     }
 
     public boolean rent(Item item, RenterId renterId) {
-        Item rentedItem = new Item(item.id(), item.name(), Optional.of(renterId));
+        Item rentedItem = new Item(item.id(), item.name(), renterId);
         items.put(rentedItem.id(), rentedItem);
         return true;
     }
