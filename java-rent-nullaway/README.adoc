@@ -5,6 +5,7 @@
 * link:http://errorprone.info/[ErrorProne]
 * link:https://github.com/uber/NullAway[NullAway]
 ** The tool assumes that the absence of a `@Nullable` annotation means the type is non-null.
+* Jackson
 * Junit 5
 
 == Usage

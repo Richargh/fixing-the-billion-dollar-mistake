@@ -8,8 +8,6 @@ public class RentUseCase {
 
     private final Renters renters;
 
-    private Item item = null;
-
     public RentUseCase(Inventory inventory, Renters renters) {
         this.inventory = inventory;
         this.renters = renters;
