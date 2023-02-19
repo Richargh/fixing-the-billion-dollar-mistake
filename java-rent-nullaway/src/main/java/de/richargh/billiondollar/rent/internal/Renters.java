@@ -1,4 +1,7 @@
-package de.richargh.billiondollar;
+package de.richargh.billiondollar.rent.internal;
+
+import de.richargh.billiondollar.rent.exposed.Renter;
+import de.richargh.billiondollar.rent.exposed.RenterId;
 
 import java.util.Map;
 import java.util.Optional;

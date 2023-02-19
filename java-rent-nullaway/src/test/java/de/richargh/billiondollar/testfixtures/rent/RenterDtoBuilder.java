@@ -1,4 +1,4 @@
-package de.richargh.billiondollar.testfixtures;
+package de.richargh.billiondollar.testfixtures.rent;
 
 import de.richargh.billiondollar.rent.dto.RenterDto;
 

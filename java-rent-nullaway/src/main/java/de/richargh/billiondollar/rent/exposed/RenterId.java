@@ -1,4 +1,4 @@
-package de.richargh.billiondollar;
+package de.richargh.billiondollar.rent.exposed;
 
 public class RenterId {
 

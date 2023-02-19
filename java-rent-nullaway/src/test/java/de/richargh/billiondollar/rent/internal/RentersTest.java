@@ -1,5 +1,8 @@
-package de.richargh.billiondollar;
+package de.richargh.billiondollar.rent.internal;
 
+import de.richargh.billiondollar.rent.exposed.Renter;
+import de.richargh.billiondollar.rent.exposed.RenterId;
+import de.richargh.billiondollar.testfixtures.rent.RenterFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

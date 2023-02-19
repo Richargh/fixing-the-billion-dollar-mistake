@@ -1,4 +1,12 @@
-package de.richargh.billiondollar;
+package de.richargh.billiondollar.rent;
+
+import de.richargh.billiondollar.rent.exposed.Item;
+import de.richargh.billiondollar.rent.exposed.ItemId;
+import de.richargh.billiondollar.rent.exposed.Renter;
+import de.richargh.billiondollar.rent.exposed.RenterId;
+import de.richargh.billiondollar.rent.internal.Inventory;
+import de.richargh.billiondollar.rent.internal.RentScope;
+import de.richargh.billiondollar.rent.internal.Renters;
 
 import java.util.Optional;
 
