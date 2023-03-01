@@ -14,9 +14,13 @@ Unfortunately that includes validating @Nullable annotations.
 ** Used to validate `@Nullable` fields and that null fields not annotated throw exceptions.
 ** We need a custom link:src/main/java/de/richargh/billiondollar/commons/annotations/Nullable.java[`@Nullable`] annotation that has runtime retention and have to add a link:src/main/java/de/richargh/billiondollar/commons/json/external/DefaultIsNonNullableValidator.java[`DefaultIsNonNullableValidator`] so that null-deserialization without `@Nullable` annotation throws an exception.
 * link:https://jcp.org/en/jsr/detail?id=305[JSR-305] (dormant since 2012)
+** Not used because we have our own @Nullable annotations that have runtime retention.
+* link:https://mapstruct.org/[MapStruct]
+** Not used because the generated mappers cause nullaway to throw errors.
+See link:https://github.com/Richargh/mapstruct-nullaway-mvn-java-limitation[MapStruct-Nullaway-Limitation] for more.
 * Junit 5
 
-TODO: jackson respects @Nullable?, does nullaway check compile-time-mapping??, jdbi respects @Nullable?
+// TODO at some point: JDBI
 
 == Usage
 
