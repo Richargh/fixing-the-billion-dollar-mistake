@@ -4,9 +4,19 @@
 
 * link:http://errorprone.info/[ErrorProne]
 * link:https://github.com/uber/NullAway[NullAway]
-** The tool assumes that the absence of a `@Nullable` annotation means the type is non-null.
+** NullAway assumes that the absence of a `@Nullable` annotation means the type is non-null.
+** NullAway respects multiple `@Nullable` annotations, including custom ones.
+The name just has to be "Nullable".
 * Jackson
+** Jackson does not validate fields.
+Unfortunately that includes validating @Nullable annotations.
+* Hibernate-Validation
+** Used to validate `@Nullable` fields and that null fields not annotated throw exceptions.
+** We need a custom link:src/main/java/de/richargh/billiondollar/commons/annotations/Nullable.java[`@Nullable`] annotation that has runtime retention and have to add a link:src/main/java/de/richargh/billiondollar/commons/json/external/DefaultIsNonNullableValidator.java[`DefaultIsNonNullableValidator`] so that null-deserialization without `@Nullable` annotation throws an exception.
+* link:https://jcp.org/en/jsr/detail?id=305[JSR-305] (dormant since 2012)
 * Junit 5
+
+TODO: jackson respects @Nullable?, does nullaway check compile-time-mapping??, jdbi respects @Nullable?
 
 == Usage
 

@@ -7,10 +7,13 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <spotbugs.version>4.7.3</spotbugs.version>
     <jackson.version>2.14.2</jackson.version>
+    <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
+    <jakarta-el.version>4.0.2</jakarta-el.version>
     <error-prone.version>2.15.0</error-prone.version>
     <nullaway.version>0.10.9</nullaway.version>
+
+    <maven.compiler.parameters>true</maven.compiler.parameters>
   </properties>
 
   <dependencyManagement>
@@ -27,15 +30,25 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <version>${spotbugs.version}</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-parameter-names</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.el</artifactId>
+      <version>${jakarta-el.version}</version>
     </dependency>
 
     <!-- Test -->
@@ -60,6 +73,7 @@
         <configuration>
           <release>17</release>
           <encoding>UTF-8</encoding>
+          <parameters>true</parameters>
           <compilerArgs>
             <arg>-XDcompilePolicy=simple</arg>
             <arg>-Xplugin:ErrorProne -Xep:NullAway:ERROR -XepOpt:NullAway:AnnotatedPackages=de.richargh</arg>
