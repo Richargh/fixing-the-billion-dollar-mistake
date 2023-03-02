@@ -10,7 +10,7 @@
     <jackson.version>2.14.2</jackson.version>
     <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
     <jakarta-el.version>4.0.2</jakarta-el.version>
-    <error-prone.version>2.15.0</error-prone.version>
+    <error-prone.version>2.18.0</error-prone.version>
     <nullaway.version>0.10.9</nullaway.version>
 
     <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -49,6 +49,12 @@
       <groupId>org.glassfish</groupId>
       <artifactId>jakarta.el</artifactId>
       <version>${jakarta-el.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.errorprone</groupId>
+      <artifactId>error_prone_annotations</artifactId>
+      <version>${error-prone.version}</version>
     </dependency>
 
     <!-- Test -->
