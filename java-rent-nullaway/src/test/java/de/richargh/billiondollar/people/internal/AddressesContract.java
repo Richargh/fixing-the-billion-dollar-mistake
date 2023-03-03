@@ -1,11 +1,11 @@
 package de.richargh.billiondollar.people.internal;
 
-import de.richargh.billiondollar.people.exposed.PersonId;
+import de.richargh.billiondollar.people.exposed.EmployeeId;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static de.richargh.billiondollar.people.exposed.AddressBuilder.anAddress;
-import static de.richargh.billiondollar.people.exposed.PersonIds.aPersonId;
+import static de.richargh.billiondollar.people.exposed.EmployeeIds.anEmployeeId;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AddressesContract {
@@ -33,7 +33,7 @@ public abstract class AddressesContract {
         var testee = makeTestee();
 
         // WHEN
-        testee.put(new PersonId("1"), anAddress);
+        testee.put(new EmployeeId("1"), anAddress);
 
         // THEN
         var result = testee.count();
@@ -47,7 +47,7 @@ public abstract class AddressesContract {
         var testee = makeTestee();
 
         // WHEN
-        var result = testee.getById(aPersonId());
+        var result = testee.getById(anEmployeeId());
 
         // THEN
         assertThat(result).isEmpty();
@@ -61,10 +61,10 @@ public abstract class AddressesContract {
         var testee = makeTestee();
 
         // WHEN
-        testee.put(aPersonId(), anAddress);
+        testee.put(anEmployeeId(), anAddress);
 
         // THEN
-        var result = testee.getById(aPersonId());
+        var result = testee.getById(anEmployeeId());
         assertThat(result).hasValue(anAddress);
     }
 }

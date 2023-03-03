@@ -1,7 +1,7 @@
 package de.richargh.billiondollar.people.internal;
 
 import de.richargh.billiondollar.people.exposed.Address;
-import de.richargh.billiondollar.people.exposed.PersonId;
+import de.richargh.billiondollar.people.exposed.EmployeeId;
 
 import java.util.Map;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryAddresses implements Addresses {
 
-    private final Map<PersonId, Address> allAddresses = new ConcurrentHashMap<>();
+    private final Map<EmployeeId, Address> allAddresses = new ConcurrentHashMap<>();
 
     @Override
     public long count() {
@@ -17,12 +17,12 @@ public class InMemoryAddresses implements Addresses {
     }
 
     @Override
-    public void put(PersonId id, Address address) {
+    public void put(EmployeeId id, Address address) {
         allAddresses.put(id, address);
     }
 
     @Override
-    public Optional<Address> getById(PersonId personId) {
-        return Optional.ofNullable(allAddresses.get(personId));
+    public Optional<Address> getById(EmployeeId employeeId) {
+        return Optional.ofNullable(allAddresses.get(employeeId));
     }
 }
