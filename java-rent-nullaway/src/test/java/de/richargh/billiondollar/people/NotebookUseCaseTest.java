@@ -17,7 +17,7 @@ class NotebookUseCaseTest {
         var testee = aNotebookUseCase().compose();
 
         // when
-        String result = testee.findNotebookMaker(anEmployeeId());
+        String result = testee.findNotebookModel(anEmployeeId());
 
         // then
         assertThat(result).isEqualTo(NotebookUseCase.EMPLOYEE_DOES_NOT_EXIST);
@@ -33,7 +33,7 @@ class NotebookUseCaseTest {
                 .compose();
 
         // when
-        String result = testee.findNotebookMaker(anEmployeeId());
+        String result = testee.findNotebookModel(anEmployeeId());
 
         // then
         assertThat(result).isEqualTo(NotebookUseCase.EMPLOYEE_DOES_NOT_HAVE_A_NOTEBOOK);

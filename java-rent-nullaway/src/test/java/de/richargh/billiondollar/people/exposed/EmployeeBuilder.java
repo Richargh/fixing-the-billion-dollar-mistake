@@ -12,6 +12,8 @@ public final class EmployeeBuilder {
 
     private @Nullable Notebook notebook = aNotebook().build();
 
+    private @Nullable Budget budget = null;
+
     private EmployeeBuilder() {
     }
 
@@ -40,6 +42,6 @@ public final class EmployeeBuilder {
     }
 
     public Employee build() {
-        return new Employee(id, name, notebook);
+        return new Employee(id, name, notebook, budget);
     }
 }

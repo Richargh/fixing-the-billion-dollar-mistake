@@ -1,5 +1,7 @@
 package de.richargh.billiondollar.commons.json.internal;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.richargh.billiondollar.commons.json.external.JsonValidationException;
 import de.richargh.billiondollar.rent.dto.ItemDto;
 import de.richargh.billiondollar.rent.dto.RenterDto;
@@ -24,6 +26,21 @@ class JacksonJsonMapperTest {
         // THEN
         assertThat(result).isEqualTo("""
                                              {"id":"1","name":"Bart"}""");
+    }
+
+    @Test
+    void Tmp() throws JsonProcessingException {
+        // GIVEN
+        var json = """
+                { "name": "Alex" }""";
+        var mapper = new ObjectMapper();
+
+        // WHEN
+        var result = mapper.readValue(json, RenterDto.class);
+
+        // THEN
+        System.out.println(result);
+        assertThat(result.id()).isNull();
     }
 
     @Test

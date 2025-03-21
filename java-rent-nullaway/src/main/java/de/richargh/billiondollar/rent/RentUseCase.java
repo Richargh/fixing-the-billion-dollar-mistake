@@ -1,9 +1,6 @@
 package de.richargh.billiondollar.rent;
 
-import de.richargh.billiondollar.rent.exposed.Item;
-import de.richargh.billiondollar.rent.exposed.ItemId;
-import de.richargh.billiondollar.rent.exposed.Renter;
-import de.richargh.billiondollar.rent.exposed.RenterId;
+import de.richargh.billiondollar.rent.exposed.*;
 import de.richargh.billiondollar.rent.internal.Inventory;
 import de.richargh.billiondollar.rent.internal.Renters;
 
@@ -20,19 +17,17 @@ public class RentUseCase {
         this.renters = renters;
     }
 
-    public boolean rent(ItemId itemId, RenterId renterId) {
-        boolean isRented = inventory.findById(itemId)
-                .flatMap(item -> notRented(item))
+    public RentResult rent(ItemId itemId, RenterId renterId) {
+        return inventory.findById(itemId)
+                .flatMap(this::isAvailable)
                 .flatMap(item -> rentScope(item, renters.findById(renterId)))
-                .map(rentScope -> inventory.rent(rentScope.item(), rentScope.renter()
-                        .id()))
-                .isPresent();
-
-        return isRented;
+                .map(rentScope -> inventory.rent(rentScope.item(), rentScope.renter().id()))
+                .map((it) -> RentResult.RENTED)
+                .orElse(RentResult.NOT_RENTED);
     }
 
-    private Optional<Item> notRented(Item item) {
-        if (item.isRented()) {
+    private Optional<Item> isAvailable(Item item) {
+        if (item.isAvailable()) {
             return Optional.empty();
         } else {
             return Optional.of(item);

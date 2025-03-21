@@ -54,6 +54,6 @@ public class IventoryTest {
         // then
         Optional<Item> result = testee.findById(item.id());
         assertThat(result.get()
-                           .isRented()).isTrue();
+                .isAvailable()).isTrue();
     }
 }

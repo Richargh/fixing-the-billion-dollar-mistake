@@ -4,7 +4,7 @@ import de.richargh.billiondollar.commons.annotations.Nullable;
 
 public record Item(ItemId id, String name, @Nullable RenterId rentedBy) {
 
-    public boolean isRented() {
+    public boolean isAvailable() {
         return rentedBy != null;
     }
 }

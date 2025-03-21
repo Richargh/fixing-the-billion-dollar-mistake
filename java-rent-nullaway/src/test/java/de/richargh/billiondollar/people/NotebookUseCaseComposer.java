@@ -1,11 +1,13 @@
 package de.richargh.billiondollar.people;
 
 import de.richargh.billiondollar.people.exposed.Employee;
-import de.richargh.billiondollar.people.internal.InMemoryCompany;
+import de.richargh.billiondollar.people.internal.*;
 
 public class NotebookUseCaseComposer {
 
-    private InMemoryCompany company = new InMemoryCompany();
+    private Company company = new InMemoryCompany();
+    private NotebookMakers makers = new InMemoryNotebookMakers();
+    private Notebooks notebooks = new InMemoryNotebooks();
 
     private NotebookUseCaseComposer() {
     }
@@ -20,6 +22,6 @@ public class NotebookUseCaseComposer {
     }
 
     public NotebookUseCase compose() {
-        return new NotebookUseCase(company);
+        return new NotebookUseCase(company, makers, notebooks);
     }
 }

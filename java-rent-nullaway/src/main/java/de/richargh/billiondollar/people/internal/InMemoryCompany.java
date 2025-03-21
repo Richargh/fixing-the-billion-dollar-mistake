@@ -7,6 +7,7 @@ import de.richargh.billiondollar.people.exposed.EmployeeId;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 public class InMemoryCompany implements Company {
 
@@ -20,6 +21,11 @@ public class InMemoryCompany implements Company {
     @Override
     public @Nullable Employee getById(EmployeeId employeeId) {
         return allEmployees.get(employeeId);
+    }
+
+    @Override
+    public Stream<Employee> all() {
+        return allEmployees.values().stream();
     }
 
     @Override

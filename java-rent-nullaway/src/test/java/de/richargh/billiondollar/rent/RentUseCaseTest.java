@@ -1,6 +1,7 @@
 package de.richargh.billiondollar.rent;
 
 import de.richargh.billiondollar.rent.exposed.Item;
+import de.richargh.billiondollar.rent.exposed.RentResult;
 import de.richargh.billiondollar.rent.exposed.Renter;
 import de.richargh.billiondollar.rent.exposed.RenterId;
 import de.richargh.billiondollar.rent.internal.Inventory;
@@ -25,10 +26,10 @@ public class RentUseCaseTest {
         RentUseCase testee = new RentUseCase(inventory, renters);
 
         // when
-        boolean isSuccess = testee.rent(item.id(), renter.id());
+        var result = testee.rent(item.id(), renter.id());
 
         // then
-        assertThat(isSuccess).isTrue();
+        assertThat(result).isEqualTo(RentResult.RENTED);
     }
 
     @Test
@@ -42,10 +43,10 @@ public class RentUseCaseTest {
         RentUseCase testee = new RentUseCase(inventory, renters);
 
         // when
-        boolean isSuccess = testee.rent(item.id(), renter.id());
+        var result = testee.rent(item.id(), renter.id());
 
         // then
-        assertThat(isSuccess).isFalse();
+        assertThat(result).isEqualTo(RentResult.NOT_RENTED);
     }
 
     @Test
@@ -58,9 +59,9 @@ public class RentUseCaseTest {
         RentUseCase testee = new RentUseCase(inventory, renters);
 
         // when
-        boolean isSuccess = testee.rent(item.id(), new RenterId("1"));
+        var result = testee.rent(item.id(), new RenterId("1"));
 
         // then
-        assertThat(isSuccess).isFalse();
+        assertThat(result).isEqualTo(RentResult.NOT_RENTED);
     }
 }

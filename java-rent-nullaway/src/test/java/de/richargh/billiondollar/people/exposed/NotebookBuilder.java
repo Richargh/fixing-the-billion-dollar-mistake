@@ -7,7 +7,11 @@ public final class NotebookBuilder {
 
     private NotebookId id = aNotebookId();
 
-    private String maker = "BELL";
+    private NotebookType type = NotebookType.Cheap;
+
+    private String model = "BELL";
+
+    private final NotebookMakerId makerId = aNotebookMakerId();
 
     private NotebookBuilder() {
     }
@@ -21,16 +25,15 @@ public final class NotebookBuilder {
         return this;
     }
 
-    public NotebookBuilder withMaker(String maker) {
-        this.maker = maker;
-        return this;
-    }
-
     public Notebook build() {
-        return new Notebook(id, maker);
+        return new Notebook(id, type, model, makerId);
     }
 
     public static NotebookId aNotebookId() {
         return new NotebookId("1");
+    }
+
+    public static NotebookMakerId aNotebookMakerId() {
+        return new NotebookMakerId("1");
     }
 }
