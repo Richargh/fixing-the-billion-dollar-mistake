@@ -16,9 +16,10 @@ The name just has to be "Nullable".
 * Jackson
 ** Jackson does not validate fields.
 Unfortunately that includes validating @Nullable annotations.
+See also link:src/test/java/de/richargh/billiondollar/commons/json/internal/StandardObjectMapperTest.java[]
 * Hibernate-Validation
 ** Used to validate `@Nullable` fields and that null fields not annotated throw exceptions.
-** We need a custom `@Nullable` annotation that has runtime retention (which link:https://jspecify.dev/[JSpecify] has) and have to add a link:src/main/java/de/richargh/billiondollar/commons/json/external/DefaultIsNonNullableValidator.java[`DefaultIsNonNullableValidator`] so that null-deserialization without `@Nullable` annotation throws an exception.
+** We need a `@Nullable` annotation that has runtime retention (which link:https://jspecify.dev/[JSpecify] has) and have to add a link:src/main/java/de/richargh/billiondollar/commons/json/external/DefaultIsNonNullableValidator.java[`DefaultIsNonNullableValidator`] so that null-deserialization without `@Nullable` annotation throws an exception.
 * link:https://mapstruct.org/[MapStruct]
 ** Not used because the generated mappers cause nullaway to throw errors.
 See link:https://github.com/Richargh/mapstruct-nullaway-mvn-java-limitation[MapStruct-Nullaway-Limitation] for more.
