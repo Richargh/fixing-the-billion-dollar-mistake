@@ -1,6 +1,6 @@
 package de.richargh.billiondollar.rent.exposed;
 
-import de.richargh.billiondollar.commons.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public record Item(ItemId id, String name, @Nullable RenterId rentedBy) {
 

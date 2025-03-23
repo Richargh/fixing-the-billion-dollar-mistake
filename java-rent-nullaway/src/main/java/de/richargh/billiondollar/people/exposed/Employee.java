@@ -1,6 +1,6 @@
 package de.richargh.billiondollar.people.exposed;
 
-import de.richargh.billiondollar.commons.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public record Employee(
         EmployeeId id,
