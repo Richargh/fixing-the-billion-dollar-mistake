@@ -36,17 +36,17 @@ sdk env use
 .Check Null
 [source,bash]
 ----
-mvn compile
+./mvnw compile
 ----
 
 .Run Test
 [source,bash]
 ----
-mvn test
+./mvnw test
 ----
 
 .Verify
 [source,bash]
 ----
-mvn clean verify
+./mvnw clean verify
 ----
