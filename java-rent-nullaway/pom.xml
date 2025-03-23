@@ -8,12 +8,17 @@
 
   <properties>
     <jackson.version>2.18.3</jackson.version>
+    <jspecify.version>1.0.0</jspecify.version>
     <hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
     <jakarta-el.version>4.0.2</jakarta-el.version>
-    <error-prone.version>2.18.0</error-prone.version>
-    <nullaway.version>0.10.9</nullaway.version>
 
-    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <junit.version>5.12.1</junit.version>
+    <assertj.version>3.27.3</assertj.version>
+
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <error-prone.version>2.37.0</error-prone.version>
+    <nullaway.version>0.12.4</nullaway.version>
   </properties>
 
   <dependencyManagement>
@@ -21,7 +26,7 @@
       <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
-        <version>5.7.1</version>
+        <version>${junit.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -54,7 +59,7 @@
     <dependency>
       <groupId>org.jspecify</groupId>
       <artifactId>jspecify</artifactId>
-      <version>1.0.0</version>
+      <version>${jspecify.version}</version>
     </dependency>
 
     <!-- Test -->
@@ -66,7 +71,7 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.21.0</version>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -75,13 +80,14 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
-          <release>17</release>
+          <release>21</release>
           <encoding>UTF-8</encoding>
           <parameters>true</parameters>
           <compilerArgs>
             <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
             <arg>-Xplugin:ErrorProne -Xep:NullAway:ERROR -XepOpt:NullAway:AnnotatedPackages=de.richargh</arg>
           </compilerArgs>
           <annotationProcessorPaths>
@@ -105,7 +111,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>${maven-surefire-plugin.version}</version>
       </plugin>
     </plugins>
   </build>

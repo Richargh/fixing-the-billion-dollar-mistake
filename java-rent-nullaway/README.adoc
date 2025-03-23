@@ -3,10 +3,13 @@
 == Tech Stack
 
 * link:http://errorprone.info/[ErrorProne]
+** ⚠ ErrorProne requires link:https://errorprone.info/docs/installation[a couple of compiler args to work].
+They are configured in link:.mvn/jvm.config[]
 * link:https://github.com/uber/NullAway[NullAway]
 ** NullAway assumes that the absence of a `@Nullable` annotation means the type is non-null.
 ** NullAway respects multiple `@Nullable` annotations, including custom ones.
-The name just has to be "Nullxable".
+The name just has to be "Nullable".
+(This repo used a custom annotation before March 22nd, commit 620710e93743f3067a3e6632e4c3ac141aec9023)
 * link:https://jspecify.dev/[JSpecify] Annotations
 ** link:https://jcp.org/en/jsr/detail?id=305[JSR-305] has been dormant since 2012
 ** JSpecify is finalized and has a lot of industry backing
